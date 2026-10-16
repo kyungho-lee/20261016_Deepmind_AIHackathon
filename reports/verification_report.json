@@ -1,7 +1,7 @@
 {
   "project": "GeoRescue 3D",
   "pipeline_name": "Gangnam Flood Evacuation NetworkX A* Autonomous Verification Loop",
-  "timestamp_utc": "2026-10-16T04:19:25.116102+00:00",
+  "timestamp_utc": "2026-10-16T05:50:16.333393+00:00",
   "agent_team": {
     "lead_orchestrator": {
       "model": "gemini-4-argon",
@@ -85,7 +85,7 @@
       },
       {
         "node_id": "GN_04",
-        "node_name": "Sinnonhyeon Station Ridge (Gangnam-daero Upper Slope)",
+        "node_name": "Sinnonhyeon Ridge (Gangnam-daero Upper Slope)",
         "z_elevation": 22.8,
         "current_water_depth": 0.05,
         "node_water_level_m": 0.05,
@@ -385,7 +385,7 @@
             },
             {
               "node_id": "GN_04",
-              "node_name": "Sinnonhyeon Station Ridge (Gangnam-daero Upper Slope)",
+              "node_name": "Sinnonhyeon Ridge (Gangnam-daero Upper Slope)",
               "z_elevation": 22.8,
               "current_water_depth": 0.05,
               "node_water_level_m": 0.05,

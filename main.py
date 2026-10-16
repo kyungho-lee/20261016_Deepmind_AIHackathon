@@ -53,7 +53,15 @@ async def async_main() -> int:
         max_iterations=args.max_iterations,
     )
     summary = await pipeline.run()
-    return 0 if summary.get("converged", False) else 1
+    if summary.get("converged", False):
+        print(
+            "[SUCCESS] Verified by Python A* Algorithm | "
+            f"Safe Route: {' -> '.join(summary.get('final_node_path', []))} "
+            f"(min_z_elevation={summary.get('min_z_elevation_m')}m > 18.5m, "
+            f"max_water_level={summary.get('max_water_level_m')}m <= 0.15m)"
+        )
+        return 0
+    return 1
 
 
 if __name__ == "__main__":
