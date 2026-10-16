@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoRescue 3D — 한글 발표 &amp; 설명 슬라이드 덱</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050814;
+      color: #f8fafc;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    .deck-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 50px 72px 80px 72px;
+      background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.14), transparent 45%),
+                  radial-gradient(circle at 15% 85%, rgba(16, 185, 129, 0.12), transparent 45%),
+                  #050814;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .slide.active { display: flex; }
+    .slide-header {
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .kicker {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #34d399;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 46px;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.2;
+    }
+    h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .slide-num {
+      font-size: 14px;
+      font-family: monospace;
+      color: #94a3b8;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.86);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 16px;
+      padding: 22px 26px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .card.green { border-color: rgba(16, 185, 129, 0.55); background: rgba(6, 78, 59, 0.18); }
+    .card.red { border-color: rgba(239, 68, 68, 0.55); background: rgba(127, 29, 29, 0.18); }
+    .card h3 {
+      font-size: 20px;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+    .card.green h3 { color: #34d399; }
+    .card.red h3 { color: #f87171; }
+    .card p, .card li {
+      font-size: 16.5px;
+      line-height: 1.65;
+      color: #e2e8f0;
+    }
+    .card ul { padding-left: 20px; }
+    .card li { margin-bottom: 8px; }
+    .pill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .pill {
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid #38bdf8;
+      color: #7dd3fc;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .pill.green {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #6ee7b7;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15.5px;
+      margin-top: 6px;
+    }
+    th, td {
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 11px 15px;
+      text-align: left;
+    }
+    th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    td { background: rgba(15, 23, 42, 0.7); color: #e2e8f0; }
+    .code-box {
+      background: #091020;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 15px 18px;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #a7f3d0;
+      white-space: pre-wrap;
+    }
+    .big-stat {
+      font-size: 38px;
+      font-weight: 800;
+      color: #34d399;
+      margin: 6px 0;
+    }
+    .nav-bar {
+      position: fixed;
+      bottom: 18px;
+      left: 72px;
+      right: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .nav-btns { display: flex; gap: 10px; }
+    .btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #f8fafc;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #38bdf8; color: #050814; }
+    .btn.primary { background: #10b981; border-color: #10b981; color: #050814; }
+    @media print {
+      body { overflow: visible; }
+      .slide { display: flex !important; page-break-after: always; height: 100vh; }
+      .nav-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- SLIDE 1: 표지 -->
+    <div class="slide active">
+      <div>
+        <div class="kicker">Google DeepMind AI Hackathon • Track 2 (Hard Tech) &amp; Track 3 (Social Good)</div>
+        <h1 style="font-size:54px; margin-top:14px;">GeoRescue 3D</h1>
+        <h2 style="margin-top:8px; color:#34d399;">실시간 3D 공간 재난 대피 시뮬레이터 &amp; AI 자율 검증 엔진</h2>
+        <div class="pill-row" style="margin-top:22px;">
+          <span class="pill">Gemini 4 Argon (1M 컨텍스트, thinking_level="high")</span>
+          <span class="pill green">Antigravity 샌드박스 자율 검증 (antigravity-preview-09-2026)</span>
+          <span class="pill">Three.js 3D WebGL 디지털 트윈</span>
+          <span class="pill">Google Cloud Run 실시간 서버</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:30px; max-height:320px;">
+        <div class="card green">
+          <h3>실시간 Google Cloud Run 프로덕션 배포</h3>
+          <p style="font-size:18.5px; font-weight:700; color:#6ee7b7; margin-bottom:10px;">
+            https://georescue3d-464836279033.asia-northeast3.run.app/
+          </p>
+          <p>서울 강남역 분지 지형을 64&times;64 IDW 3D 등고선 메쉬로 구현하고, 폭우 수위 변화에 따라 <strong>1.04ms</strong> 만에 안전한 고지대 대피 경로를 재계산합니다.</p>
+        </div>
+        <div class="card">
+          <h3>공식 GitHub 저장소 (Public Repository)</h3>
+          <p style="font-size:18px; font-weight:700; color:#7dd3fc; margin-bottom:10px;">
+            https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon
+          </p>
+          <p>3개 팀(Alpha/Beta/Gamma) 멀티 에이전트 토너먼트, Python NetworkX A* 자율 검증 루프, V-World/OSM 오픈 GIS 데이터셋 및 관제사 승인(HITL) 콘솔 포함.</p>
+        </div>
+      </div>
+      <div class="slide-num">슬라이드 1 / 7 — 키보드 좌(←)/우(→) 방향키로 이동 • Ctrl+P로 PDF 저장 가능</div>
+    </div>
+
+    <!-- SLIDE 2: 문제 정의 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">1. 문제 정의 및 사회적 임팩트 (Problem &amp; Impact)</div>
+          <h2>왜 폭우 시 기존 2D 지도와 일반 LLM은 위험한가?</h2>
+        </div>
+        <div class="slide-num">02 / 07</div>
+      </div>
+      <div class="grid-3">
+        <div class="card red">
+          <h3>1. 강남역 항아리형(오목) 분지 지형</h3>
+          <p>강남역 사거리 중심 저지대(<code>GN_02</code>)는 해발 <strong>13.5m</strong>인 반면, 국기원 언덕(<strong>38.5m</strong>)과 역삼중 대피소(<strong>41.2m</strong>)는 높은 능선으로 둘러싸여 있습니다.</p>
+          <p style="margin-top:12px;">극한호우(<code>water_level = 2.0m</code>, 침수면 <code>z = 18.5m</code>) 발생 시 중앙 저지대가 수 분 만에 침수됩니다.</p>
+        </div>
+        <div class="card red">
+          <h3>2. 2D 평면 최단 경로의 치명적 함정</h3>
+          <p>기존 2D 내비게이션은 지형 고도를 무시하고 수평 최단 거리(<code>850m</code>)만 탐색합니다:<br/>
+          <code>GN_01 &rarr; GN_02 &rarr; GN_06 &rarr; GN_08</code></p>
+          <p style="margin-top:12px;">결과적으로 시민을 <strong>수심 0.45m로 침수된 강남역 저지대(GN_02, 13.5m)</strong> 한가운데로 유도합니다.</p>
+        </div>
+        <div class="card green">
+          <h3>3. GeoRescue 3D의 해결책</h3>
+          <p><strong>Gemini 4 Argon(1M 컨텍스트)</strong>의 공간 추론과 <strong>Antigravity Python A* 샌드박스 검증</strong>을 결합했습니다.</p>
+          <p style="margin-top:12px;">모든 대피 경로 노드가 <code>z_elevation &gt; 18.5m</code> 및 <code>수심 &le; 0.15m</code>를 만족함을 수학적으로 검증한 뒤 3D 디지털 트윈에 렌더링합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: 아키텍처 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">2. 멀티 에이전트 시스템 아키텍처 (AGENTS.md)</div>
+          <h2>Gemini 4 Argon (1M) + Antigravity 자율 검증 파이프라인</h2>
+        </div>
+        <div class="slide-num">03 / 07</div>
+      </div>
+      <div>
+        <div class="code-box" style="margin-bottom:16px;">[1. GIS 데이터 파이프라인 (make_data.py)]  V-World 3D DEM (gangnam_3d_grid.csv) + OSM 도로망 (gangnam_graphify.json)
+        |
+        v
+[2. 총괄 지휘 및 심사위원장 에이전트]       gemini-4-argon (1M 컨텍스트, thinking_level="high", background=True)
+        |                                 &bull; 3개 팀 경쟁 토너먼트(Alpha / Beta / Gamma) 지휘 및 100점 루브릭 심사
+        v
+[3. 자율 샌드박스 검증 에이전트]           antigravity-preview-09-2026 (격리된 Linux Python NetworkX A* 샌드박스)
+        |                                 &bull; Iteration #1: GN_02 침수 기각(13.5m &le; 18.5m) &rarr; Iteration #2: 고지대 능선 우회 검증 완료
+        v
+[4. Cloud Run 프로덕션 웹앱]              FastAPI (app.py) + Three.js 3D WebGL + Google Maps + 관제사 승인(HITL)</div>
+        <table>
+          <thead>
+            <tr>
+              <th>에이전트 역할</th>
+              <th>할당 모델 / 에이전트 ID</th>
+              <th>핵심 책임 및 산출물</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Argon 심사위원장 &amp; 총괄 지휘</strong></td>
+              <td><code>gemini-4-argon</code> (<code>high</code>, 1M)</td>
+              <td>멀티 에이전트 토너먼트 오케스트레이션, 3D 지형 물리 함수 생성, 100점 만점 루브릭 최종 채택</td>
+            </tr>
+            <tr>
+              <td><strong>2. 자율 샌드박스 검증 에이전트</strong></td>
+              <td><code>antigravity-preview-09-2026</code></td>
+              <td>Python <code>NetworkX</code> A* 최단경로 검증 및 자율 자기교정 루프 (<code>[SUCCESS] Verified</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>3. 고속 워커 &amp; 안전 가드레일</strong></td>
+              <td><code>gemini-3.8-flash</code> + <code>3.5-flash-lite</code></td>
+              <td>초고속 CSV/JSON 스키마 검증, V-World/OSM 오픈 라이선스 준수 및 관제사 승인(HITL) 의무화</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 자율 자기교정 루프 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">3. 자율 샌드박스 자기교정 (Autonomous Self-Correction)</div>
+          <h2>Antigravity가 침수 위험 구간을 스스로 감지하고 우회하는 과정</h2>
+        </div>
+        <div class="slide-num">04 / 07</div>
+      </div>
+      <div class="grid-2">
+        <div class="card red">
+          <h3>Iteration #1 — 샌드박스 검증 기각 (FAIL)</h3>
+          <ul>
+            <li><strong>1차 후보 경로</strong>: <code>GN_01 (19.2m) &rarr; GN_02 (13.5m) &rarr; GN_06 (34.0m) &rarr; GN_08 (41.2m)</code></li>
+            <li><strong>이동 거리</strong>: <code>850.0 m</code> (단순 수평 최단 경로)</li>
+            <li><strong>샌드박스 감사 결과</strong>: <code>[FAIL / 치명적 안전 위반 4건 적발]</code></li>
+            <li><strong>위반 1</strong>: <code>GN_02</code> 지형 고도 <code>13.50m &le; 18.50m</code> 침수 기준면 미달</li>
+            <li><strong>위반 2</strong>: 노면 침수심 <code>0.45m &gt; 0.15m</code> 보행 안전 한계 초과</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Iteration #2 — 자율 자기교정 성공 (PASS)</h3>
+          <ul>
+            <li><strong>Argon 파라미터 교정</strong>: 침수 노드 <code>GN_02</code> 즉시 차단(Blacklist), 고지대 보너스 가중치(<code>2.0</code>) 부여 후 재실행</li>
+            <li><strong>검증된 안전 경로</strong>: <code>GN_01 (19.2m) &rarr; GN_04 신논현 능선 (22.8m) &rarr; GN_05 국기원 언덕 (38.5m) &rarr; GN_06 (34.0m) &rarr; GN_08 역삼중 대피소 (41.2m)</code></li>
+            <li><strong>최소 고도 / 최대 수심</strong>: <strong><code>19.20m (&gt; 18.5m)</code></strong> / <strong><code>0.12m (&le; 0.15m)</code></strong></li>
+            <li><strong>샌드박스 최종 출력</strong>: <code>[SUCCESS] Verified by Python A* Algorithm</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 3D 디지털 트윈 혁신 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">4. 핵심 기술 혁신 (Key Features &amp; Innovation)</div>
+          <h2>고저차 100% 밀착형 3D WebGL 디지털 트윈 &amp; 관제 승인 시스템</h2>
+        </div>
+        <div class="slide-num">05 / 07</div>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>고도 오차 0.00m 지형 동기화</h3>
+          <div class="big-stat">64 &times; 64 DEM</div>
+          <p>백엔드와 프론트엔드가 동일한 12개 제어점 역거리 가중 보간(IDW) 모델을 공유합니다. <strong>2.5m 간격 등고선</strong>과 <strong>3D 녹색 대피 경로 튜브</strong>가 지형 경사를 오차 없이 그대로 따라갑니다.</p>
+        </div>
+        <div class="card">
+          <h3>실시간 수위 슬라이더 &amp; 단면도</h3>
+          <div class="big-stat">1.04 ms</div>
+          <p>침수 수위 슬라이더(<code>14.0m – 22.0m</code>) 조작 시 3D 수면이 즉각 상승하며, 우측 <strong>종단 고도 단면도 차트</strong>와 A* 우회 경로가 <code>1.04ms</code> 만에 실시간 갱신됩니다.</p>
+        </div>
+        <div class="card green">
+          <h3>Google Maps + 관제사 승인</h3>
+          <div class="big-stat">HITL 거버넌스</div>
+          <p>실좌표(WGS84) 지도 패널, 원클릭 <strong>Google Maps 도보 길찾기 연동</strong>, V-World/OSM 오픈 라이선스 표기 및 <strong>관제사 최종 송출 승인(HITL)</strong> 버튼을 탑재했습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: 토너먼트 및 정량 지표 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">5. 3개 팀 경쟁 토너먼트 및 정량 검증 지표</div>
+          <h2>Argon 심사위원장(Chief Jury) 100점 루브릭 평가 결과</h2>
+        </div>
+        <div class="slide-num">06 / 07</div>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>검증 항목 (배점 기준)</th>
+              <th>안전 통과 기준 (Threshold)</th>
+              <th>Team Alpha (알고리즘팀)</th>
+              <th>Team Beta (3D 시각화팀)</th>
+              <th>Team Gamma (최종 채택 빌드)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>경로 내 최소 지형 고도 (<code>min_z</code>)</strong></td>
+              <td><code>&gt; 18.50 m</code></td>
+              <td style="color:#f87171;">13.50 m (침수 실격)</td>
+              <td style="color:#f87171;">17.20 m (침수 실격)</td>
+              <td style="color:#34d399; font-weight:700;">19.20 m &rarr; 41.20 m (통과)</td>
+            </tr>
+            <tr>
+              <td><strong>경로 내 최대 노면 수심</strong></td>
+              <td><code>&le; 0.15 m</code></td>
+              <td style="color:#f87171;">0.45 m (실격)</td>
+              <td style="color:#f87171;">0.28 m (실격)</td>
+              <td style="color:#34d399; font-weight:700;">0.12 m (안전 통과)</td>
+            </tr>
+            <tr>
+              <td><strong>골든타임 대피 소요 시간 (ETA)</strong></td>
+              <td><code>&le; 1,800초 (30분 이내)</code></td>
+              <td>1,598.4초</td>
+              <td>1,412.0초</td>
+              <td style="color:#34d399; font-weight:700;">1,524.6초 (25.4분 — 통과)</td>
+            </tr>
+            <tr>
+              <td><strong>Argon 심사위원장 최종 점수</strong></td>
+              <td><code>100점 만점 루브릭</code></td>
+              <td>47.0 / 100</td>
+              <td>44.0 / 100</td>
+              <td style="color:#34d399; font-weight:800;">97.6 / 100 (최종 채택)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: 결론 및 라이브 링크 -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">6. 라이브 배포 및 결론 (Conclusion)</div>
+          <h2>지금 바로 Cloud Run에서 3D 대피 시뮬레이션을 확인하세요</h2>
+        </div>
+        <div class="slide-num">07 / 07</div>
+      </div>
+      <div class="grid-2">
+        <div class="card green">
+          <h3>Google Cloud Run 라이브 데모</h3>
+          <p style="margin-bottom:14px;">서울 리전(<code>asia-northeast3</code>) 컨테이너 서버 실시간 가동 중:</p>
+          <p style="font-size:20px; font-weight:800; color:#34d399; word-break:break-all; margin-bottom:18px;">
+            https://georescue3d-464836279033.asia-northeast3.run.app/
+          </p>
+          <a class="btn primary" href="https://georescue3d-464836279033.asia-northeast3.run.app/" target="_blank">
+            라이브 3D 디지털 트윈 열기 &nearr;
+          </a>
+        </div>
+        <div class="card">
+          <h3>공식 GitHub 오픈소스 저장소</h3>
+          <p style="margin-bottom:14px;">전체 멀티 에이전트 코드, 데이터셋, 샌드박스 검증 리포트:</p>
+          <p style="font-size:18px; font-weight:700; color:#38bdf8; word-break:break-all; margin-bottom:18px;">
+            https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon
+          </p>
+          <a class="btn" href="https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon" target="_blank">
+            GitHub 저장소 열기 &nearr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <div style="font-size:13px; color:#94a3b8;">
+      <strong>GeoRescue 3D (한글 설명 덱)</strong> • Gemini 4 Argon (1M) + Antigravity 자율 검증
+    </div>
+    <div class="nav-btns">
+      <button class="btn" onclick="prevSlide()">&larr; 이전</button>
+      <button class="btn" onclick="nextSlide()">다음 &rarr;</button>
+      <button class="btn" onclick="window.print()">PDF 저장 (Ctrl+P)</button>
+      <a class="btn" href="/static/slides.html">영문 슬라이드(EN)</a>
+      <a class="btn primary" href="/">3D 시뮬레이터 화면</a>
+    </div>
+  </div>
+
+  <script>
+    let idx = 0;
+    const slides = document.querySelectorAll(".slide");
+    function showSlide(n) {
+      slides[idx].classList.remove("active");
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add("active");
+    }
+    function nextSlide() { showSlide(idx + 1); }
+    function prevSlide() { showSlide(idx - 1); }
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") nextSlide();
+      if (e.key === "ArrowLeft" || e.key === "PageUp") prevSlide();
+    });
+  </script>
+</body>
+</html>
