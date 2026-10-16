@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeoRescue 3D - Team Beta 3D Flood Terrain Visualizer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin:0; overflow:hidden; background:#060b19; color:#e2e8f0; font-family:Inter,sans-serif;">
+  <div id="hud" style="position:absolute;top:16px;left:16px;background:rgba(15,23,42,0.85);padding:16px;border-radius:12px;">
+    <h3>GeoRescue 3D - Team Beta Visualizer</h3>
+    <div>Dynamic Water Plane (water_level=2.0m) + Rain Particle System</div>
+  </div>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    // Terrain Mesh & Flood Water Plane
+    const terrainGeo = new THREE.PlaneGeometry(200, 200, 32, 32);
+    const terrainMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, wireframe: true });
+    const terrainMesh = new THREE.Mesh(terrainGeo, terrainMat);
+    scene.add(terrainMesh);
+    const waterGeo = new THREE.PlaneGeometry(200, 200);
+    const waterMat = new THREE.MeshBasicMaterial({ color: 0x0284c7, transparent: true, opacity: 0.55 });
+    const waterPlane = new THREE.Mesh(waterGeo, waterMat);
+    waterPlane.position.y = 18.5;
+    scene.add(waterPlane);
+    // Rain Particle System
+    const rainGeo = new THREE.BufferGeometry();
+    const rainPositions = new Float32Array(1500 * 3);
+    rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPositions, 3));
+    const rainParticles = new THREE.Points(rainGeo, new THREE.PointsMaterial({ color: 0x93c5fd, size: 0.4 }));
+    scene.add(rainParticles);
+    camera.position.set(0, 60, 120);
+    renderer.render(scene, camera);
+  </script>
+</body>
+</html>

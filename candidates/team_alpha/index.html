@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeoRescue 3D - Team Alpha Candidate (Minimal Viewer)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin:0; background:#0b1021; color:#fff; font-family:sans-serif;">
+  <div style="padding:16px;">
+    <h2>GeoRescue 3D - Team Alpha (Algorithm-Focused Build)</h2>
+    <p>Fast NetworkX A* wireframe preview (basic scene).</p>
+  </div>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight - 100);
+    document.body.appendChild(renderer.domElement);
+    camera.position.set(0, 30, 50);
+    renderer.render(scene, camera);
+  </script>
+</body>
+</html>

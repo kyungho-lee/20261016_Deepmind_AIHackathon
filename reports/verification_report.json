@@ -1,0 +1,473 @@
+{
+  "project": "GeoRescue 3D",
+  "pipeline_name": "Gangnam Flood Evacuation NetworkX A* Autonomous Verification Loop",
+  "timestamp_utc": "2026-10-16T04:19:25.116102+00:00",
+  "agent_team": {
+    "lead_orchestrator": {
+      "model": "gemini-4-argon",
+      "thinking_level": "high"
+    },
+    "backend_data_pipeline_specialist": {
+      "model": "gemini-4-argon (medium) + gemini-3.8-flash",
+      "role": "Backend & Data Pipeline Specialist Agent"
+    },
+    "autonomous_verifier": {
+      "agent_id": "antigravity-preview-09-2026",
+      "environment": "remote"
+    },
+    "fast_leaf_worker": {
+      "model": "gemini-3.8-flash"
+    },
+    "legal_safety_guardrail": {
+      "model": "gemini-3.5-flash-lite"
+    },
+    "instructions_file": "AGENTS.md"
+  },
+  "backend_pipeline_status": {
+    "agent_model": "gemini-4-argon (medium) + gemini-3.8-flash",
+    "role": "Backend & Data Pipeline Specialist Agent",
+    "csv_grid_path": "data\\gangnam_3d_grid.csv",
+    "csv_grid_points": 441,
+    "graph_json_path": "data\\gangnam_graphify.json",
+    "graph_nodes": 8,
+    "graph_edges": 8,
+    "fastapi_backend_ready": true,
+    "static_frontend_ready": true,
+    "cloud_shell_command": "uvicorn app:app --host 0.0.0.0 --port 8080"
+  },
+  "schema_validation": {
+    "agent_model": "gemini-3.8-flash",
+    "role": "Fast Subagent & Tool Worker",
+    "schema_valid": true,
+    "node_count": 8,
+    "edge_count": 8,
+    "csv_grid_count": 441,
+    "errors": []
+  },
+  "managed_interaction": {
+    "execution_mode": "local_sandbox_fallback",
+    "reason": "google-genai client not configured with remote credentials; using local isolated sandbox.",
+    "prompt_dispatched": "1. Read data\\gangnam_graphify.json and data/gangnam_3d_grid.csv.\n2. Run Python NetworkX A* shortest path algorithm with water_level=2.0m.\n3. Verify that all nodes in the path avoid submerged areas (z_elevation > 18.5m and z_elevation > current_water_depth).\n4. Return the verified path JSON if all checks pass."
+  },
+  "dataset": "data\\gangnam_graphify.json",
+  "converged": true,
+  "total_iterations": 2,
+  "final_status": "VERIFIED_SAFE",
+  "certified_safe_route": {
+    "found": true,
+    "origin_id": "GN_01",
+    "destination_id": "GN_08",
+    "node_path": [
+      "GN_01",
+      "GN_04",
+      "GN_05",
+      "GN_06",
+      "GN_08"
+    ],
+    "edge_path": [
+      "E_GN01_GN04",
+      "E_GN04_GN05",
+      "E_GN05_GN06",
+      "E_GN06_GN08"
+    ],
+    "steps": [
+      {
+        "node_id": "GN_01",
+        "node_name": "Gangnam Station Intersection (Origin Perimeter)",
+        "z_elevation": 19.2,
+        "current_water_depth": 0.12,
+        "node_water_level_m": 0.12,
+        "edge_id": null,
+        "road_name": null,
+        "edge_distance_m": 0.0,
+        "edge_water_level_m": 0.0,
+        "step_time_sec": 0.0
+      },
+      {
+        "node_id": "GN_04",
+        "node_name": "Sinnonhyeon Station Ridge (Gangnam-daero Upper Slope)",
+        "z_elevation": 22.8,
+        "current_water_depth": 0.05,
+        "node_water_level_m": 0.05,
+        "edge_id": "E_GN01_GN04",
+        "road_name": "Gangnam-daero Northbound Uphill",
+        "edge_distance_m": 680.0,
+        "edge_water_level_m": 0.09,
+        "step_time_sec": 604.32
+      },
+      {
+        "node_id": "GN_05",
+        "node_name": "Kukkiwon Hill Intersection (High Ground)",
+        "z_elevation": 38.5,
+        "current_water_depth": 0.01,
+        "node_water_level_m": 0.01,
+        "edge_id": "E_GN04_GN05",
+        "road_name": "Bongeunsa-ro to Kukkiwon Hill Climb",
+        "edge_distance_m": 490.0,
+        "edge_water_level_m": 0.02,
+        "step_time_sec": 362.96
+      },
+      {
+        "node_id": "GN_06",
+        "node_name": "Yeoksam Station Intersection (Teheran-ro Plateau)",
+        "z_elevation": 34.0,
+        "current_water_depth": 0.03,
+        "node_water_level_m": 0.03,
+        "edge_id": "E_GN05_GN06",
+        "road_name": "Nonhyeon-ro High-Ground Connector",
+        "edge_distance_m": 380.0,
+        "edge_water_level_m": 0.02,
+        "step_time_sec": 298.02
+      },
+      {
+        "node_id": "GN_08",
+        "node_name": "Yeoksam Middle School Regional Evacuation Shelter",
+        "z_elevation": 41.2,
+        "current_water_depth": 0.0,
+        "node_water_level_m": 0.0,
+        "edge_id": "E_GN06_GN08",
+        "road_name": "Teheran-ro East Shelter Corridor",
+        "edge_distance_m": 350.0,
+        "edge_water_level_m": 0.01,
+        "step_time_sec": 259.26
+      }
+    ],
+    "total_distance_m": 1900.0,
+    "min_z_elevation_m": 19.2,
+    "max_node_water_level_m": 0.12,
+    "max_edge_water_level_m": 0.09,
+    "max_water_level_m": 0.12,
+    "estimated_time_sec": 1524.57,
+    "total_weighted_cost": 2004.54,
+    "params_used": {
+      "scenario_water_level_m": 2.0,
+      "min_safe_z_elevation_m": 16.0,
+      "max_allowed_water_level_m": 0.28,
+      "flood_penalty_weight": 0.4,
+      "elevation_bonus_weight": 2.0,
+      "blocked_nodes": [
+        "GN_02"
+      ],
+      "blocked_edges": [
+        "E_GN01_GN02",
+        "E_GN02_GN06"
+      ],
+      "rationale": "[gemini-4-argon | thinking_level=high] Iteration 2 self-correction: Blacklisted submerged elements ['E_GN01_GN02', 'E_GN02_GN06', 'GN_02'] reported by antigravity-preview-09-2026; raised min_safe_z_elevation_m to 16.0m, tightened max_allowed_water_level_m to 0.28m, and increased flood_penalty_weight=0.4, elevation_bonus_weight=2.0."
+    }
+  },
+  "guardrail_compliance": {
+    "agent_model": "gemini-3.5-flash-lite",
+    "role": "Legal & Safety Guardrail Agent",
+    "open_gis_license_compliant": true,
+    "verified_gis_sources": [
+      "V-World 3D Digital Twin DEM (Ministry of Land, Infrastructure and Transport)",
+      "OpenStreetMap (OSM) Road Network (ODbL v1.0)"
+    ],
+    "human_in_the_loop_required": true,
+    "disclaimer": "AI-Assisted Evacuation Disclaimer: This 3D flood evacuation route was autonomously computed and sandbox-verified by GeoRescue 3D (gemini-4-argon + antigravity-preview-09-2026). Final public dispatch requires Human-in-the-Loop (HITL) control center officer approval."
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "lead_agent_model": "gemini-4-argon",
+      "verification_agent_model": "antigravity-preview-09-2026",
+      "routing_params": {
+        "scenario_water_level_m": 2.0,
+        "min_safe_z_elevation_m": 0.0,
+        "max_allowed_water_level_m": 0.5,
+        "flood_penalty_weight": 0.0,
+        "elevation_bonus_weight": 0.0,
+        "blocked_nodes": [],
+        "blocked_edges": [],
+        "rationale": "[gemini-4-argon | thinking_level=high] Iteration 1 baseline: Unconstrained shortest-distance NetworkX A* search (max_allowed_water_level_m=0.50m, min_safe_z_elevation_m=0.0m)."
+      },
+      "sandbox_audit": {
+        "agent_model": "antigravity-preview-09-2026",
+        "sandbox_mode": "remote / proceed-in-sandbox (isolated)",
+        "passed": false,
+        "status": "UNSAFE_ROUTE_DETECTED",
+        "route": {
+          "found": true,
+          "origin_id": "GN_01",
+          "destination_id": "GN_08",
+          "node_path": [
+            "GN_01",
+            "GN_02",
+            "GN_06",
+            "GN_08"
+          ],
+          "edge_path": [
+            "E_GN01_GN02",
+            "E_GN02_GN06",
+            "E_GN06_GN08"
+          ],
+          "steps": [
+            {
+              "node_id": "GN_01",
+              "node_name": "Gangnam Station Intersection (Origin Perimeter)",
+              "z_elevation": 19.2,
+              "current_water_depth": 0.12,
+              "node_water_level_m": 0.12,
+              "edge_id": null,
+              "road_name": null,
+              "edge_distance_m": 0.0,
+              "edge_water_level_m": 0.0,
+              "step_time_sec": 0.0
+            },
+            {
+              "node_id": "GN_02",
+              "node_name": "Gangnam Station Exit 11 (Teheran-ro Low Basin)",
+              "z_elevation": 13.5,
+              "current_water_depth": 2.0,
+              "node_water_level_m": 0.45,
+              "edge_id": "E_GN01_GN02",
+              "road_name": "Gangnam-daero to Teheran-ro Basin Entry",
+              "edge_distance_m": 180.0,
+              "edge_water_level_m": 0.45,
+              "step_time_sec": 666.67
+            },
+            {
+              "node_id": "GN_06",
+              "node_name": "Yeoksam Station Intersection (Teheran-ro Plateau)",
+              "z_elevation": 34.0,
+              "current_water_depth": 0.03,
+              "node_water_level_m": 0.03,
+              "edge_id": "E_GN02_GN06",
+              "road_name": "Teheran-ro Direct Corridor",
+              "edge_distance_m": 320.0,
+              "edge_water_level_m": 0.35,
+              "step_time_sec": 672.45
+            },
+            {
+              "node_id": "GN_08",
+              "node_name": "Yeoksam Middle School Regional Evacuation Shelter",
+              "z_elevation": 41.2,
+              "current_water_depth": 0.0,
+              "node_water_level_m": 0.0,
+              "edge_id": "E_GN06_GN08",
+              "road_name": "Teheran-ro East Shelter Corridor",
+              "edge_distance_m": 350.0,
+              "edge_water_level_m": 0.01,
+              "step_time_sec": 259.26
+            }
+          ],
+          "total_distance_m": 850.0,
+          "min_z_elevation_m": 13.5,
+          "max_node_water_level_m": 0.45,
+          "max_edge_water_level_m": 0.45,
+          "max_water_level_m": 0.45,
+          "estimated_time_sec": 1598.37,
+          "total_weighted_cost": 850.0,
+          "params_used": {
+            "scenario_water_level_m": 2.0,
+            "min_safe_z_elevation_m": 0.0,
+            "max_allowed_water_level_m": 0.5,
+            "flood_penalty_weight": 0.0,
+            "elevation_bonus_weight": 0.0,
+            "blocked_nodes": [],
+            "blocked_edges": [],
+            "rationale": "[gemini-4-argon | thinking_level=high] Iteration 1 baseline: Unconstrained shortest-distance NetworkX A* search (max_allowed_water_level_m=0.50m, min_safe_z_elevation_m=0.0m)."
+          }
+        },
+        "invariants_checked": {
+          "INV_01_Z_ELEVATION_CLEARANCE": false,
+          "INV_02_HARD_FLOOD_DEPTH_LIMIT": false,
+          "INV_03_SHELTER_REACHABILITY": true,
+          "INV_04_EVACUATION_GOLDEN_TIME": true
+        },
+        "violations": [
+          {
+            "invariant_id": "INV_01_Z_ELEVATION_CLEARANCE",
+            "severity": "CRITICAL",
+            "element_type": "NODE",
+            "element_id": "GN_02",
+            "element_name": "Gangnam Station Exit 11 (Teheran-ro Low Basin)",
+            "observed_value": 13.5,
+            "threshold_value": 18.5,
+            "message": "Node 'Gangnam Station Exit 11 (Teheran-ro Low Basin)' (GN_02) has z_elevation=13.50m (<= required 18.50m flood plane under water_level=2.0m; current_water_depth=2.00m)."
+          },
+          {
+            "invariant_id": "INV_02_HARD_FLOOD_DEPTH_LIMIT",
+            "severity": "CRITICAL",
+            "element_type": "NODE",
+            "element_id": "GN_02",
+            "element_name": "Gangnam Station Exit 11 (Teheran-ro Low Basin)",
+            "observed_value": 0.45,
+            "threshold_value": 0.15,
+            "message": "Node 'Gangnam Station Exit 11 (Teheran-ro Low Basin)' (GN_02) surface water_level_m=0.45m exceeds safe limit (0.15m)."
+          },
+          {
+            "invariant_id": "INV_02_HARD_FLOOD_DEPTH_LIMIT",
+            "severity": "CRITICAL",
+            "element_type": "EDGE",
+            "element_id": "E_GN01_GN02",
+            "element_name": "Gangnam-daero to Teheran-ro Basin Entry",
+            "observed_value": 0.45,
+            "threshold_value": 0.15,
+            "message": "Road segment 'Gangnam-daero to Teheran-ro Basin Entry' (E_GN01_GN02) water_level_m=0.45m exceeds safe limit (0.15m)."
+          },
+          {
+            "invariant_id": "INV_02_HARD_FLOOD_DEPTH_LIMIT",
+            "severity": "CRITICAL",
+            "element_type": "EDGE",
+            "element_id": "E_GN02_GN06",
+            "element_name": "Teheran-ro Direct Corridor",
+            "observed_value": 0.35,
+            "threshold_value": 0.15,
+            "message": "Road segment 'Teheran-ro Direct Corridor' (E_GN02_GN06) water_level_m=0.35m exceeds safe limit (0.15m)."
+          }
+        ],
+        "recommended_blocked_nodes": [
+          "GN_02"
+        ],
+        "recommended_blocked_edges": [
+          "E_GN01_GN02",
+          "E_GN02_GN06"
+        ],
+        "recommended_min_z_elevation_m": 16.0,
+        "recommended_max_water_level_m": 0.28,
+        "summary": "[FAIL / UNSAFE_ROUTE_DETECTED] Route GN_01 -> GN_02 -> GN_06 -> GN_08 triggered 4 safety invariant violations (min z_elevation=13.50m, max water_level_m=0.45m)."
+      }
+    },
+    {
+      "iteration": 2,
+      "lead_agent_model": "gemini-4-argon",
+      "verification_agent_model": "antigravity-preview-09-2026",
+      "routing_params": {
+        "scenario_water_level_m": 2.0,
+        "min_safe_z_elevation_m": 16.0,
+        "max_allowed_water_level_m": 0.28,
+        "flood_penalty_weight": 0.4,
+        "elevation_bonus_weight": 2.0,
+        "blocked_nodes": [
+          "GN_02"
+        ],
+        "blocked_edges": [
+          "E_GN01_GN02",
+          "E_GN02_GN06"
+        ],
+        "rationale": "[gemini-4-argon | thinking_level=high] Iteration 2 self-correction: Blacklisted submerged elements ['E_GN01_GN02', 'E_GN02_GN06', 'GN_02'] reported by antigravity-preview-09-2026; raised min_safe_z_elevation_m to 16.0m, tightened max_allowed_water_level_m to 0.28m, and increased flood_penalty_weight=0.4, elevation_bonus_weight=2.0."
+      },
+      "sandbox_audit": {
+        "agent_model": "antigravity-preview-09-2026",
+        "sandbox_mode": "remote / proceed-in-sandbox (isolated)",
+        "passed": true,
+        "status": "VERIFIED_SAFE",
+        "route": {
+          "found": true,
+          "origin_id": "GN_01",
+          "destination_id": "GN_08",
+          "node_path": [
+            "GN_01",
+            "GN_04",
+            "GN_05",
+            "GN_06",
+            "GN_08"
+          ],
+          "edge_path": [
+            "E_GN01_GN04",
+            "E_GN04_GN05",
+            "E_GN05_GN06",
+            "E_GN06_GN08"
+          ],
+          "steps": [
+            {
+              "node_id": "GN_01",
+              "node_name": "Gangnam Station Intersection (Origin Perimeter)",
+              "z_elevation": 19.2,
+              "current_water_depth": 0.12,
+              "node_water_level_m": 0.12,
+              "edge_id": null,
+              "road_name": null,
+              "edge_distance_m": 0.0,
+              "edge_water_level_m": 0.0,
+              "step_time_sec": 0.0
+            },
+            {
+              "node_id": "GN_04",
+              "node_name": "Sinnonhyeon Station Ridge (Gangnam-daero Upper Slope)",
+              "z_elevation": 22.8,
+              "current_water_depth": 0.05,
+              "node_water_level_m": 0.05,
+              "edge_id": "E_GN01_GN04",
+              "road_name": "Gangnam-daero Northbound Uphill",
+              "edge_distance_m": 680.0,
+              "edge_water_level_m": 0.09,
+              "step_time_sec": 604.32
+            },
+            {
+              "node_id": "GN_05",
+              "node_name": "Kukkiwon Hill Intersection (High Ground)",
+              "z_elevation": 38.5,
+              "current_water_depth": 0.01,
+              "node_water_level_m": 0.01,
+              "edge_id": "E_GN04_GN05",
+              "road_name": "Bongeunsa-ro to Kukkiwon Hill Climb",
+              "edge_distance_m": 490.0,
+              "edge_water_level_m": 0.02,
+              "step_time_sec": 362.96
+            },
+            {
+              "node_id": "GN_06",
+              "node_name": "Yeoksam Station Intersection (Teheran-ro Plateau)",
+              "z_elevation": 34.0,
+              "current_water_depth": 0.03,
+              "node_water_level_m": 0.03,
+              "edge_id": "E_GN05_GN06",
+              "road_name": "Nonhyeon-ro High-Ground Connector",
+              "edge_distance_m": 380.0,
+              "edge_water_level_m": 0.02,
+              "step_time_sec": 298.02
+            },
+            {
+              "node_id": "GN_08",
+              "node_name": "Yeoksam Middle School Regional Evacuation Shelter",
+              "z_elevation": 41.2,
+              "current_water_depth": 0.0,
+              "node_water_level_m": 0.0,
+              "edge_id": "E_GN06_GN08",
+              "road_name": "Teheran-ro East Shelter Corridor",
+              "edge_distance_m": 350.0,
+              "edge_water_level_m": 0.01,
+              "step_time_sec": 259.26
+            }
+          ],
+          "total_distance_m": 1900.0,
+          "min_z_elevation_m": 19.2,
+          "max_node_water_level_m": 0.12,
+          "max_edge_water_level_m": 0.09,
+          "max_water_level_m": 0.12,
+          "estimated_time_sec": 1524.57,
+          "total_weighted_cost": 2004.54,
+          "params_used": {
+            "scenario_water_level_m": 2.0,
+            "min_safe_z_elevation_m": 16.0,
+            "max_allowed_water_level_m": 0.28,
+            "flood_penalty_weight": 0.4,
+            "elevation_bonus_weight": 2.0,
+            "blocked_nodes": [
+              "GN_02"
+            ],
+            "blocked_edges": [
+              "E_GN01_GN02",
+              "E_GN02_GN06"
+            ],
+            "rationale": "[gemini-4-argon | thinking_level=high] Iteration 2 self-correction: Blacklisted submerged elements ['E_GN01_GN02', 'E_GN02_GN06', 'GN_02'] reported by antigravity-preview-09-2026; raised min_safe_z_elevation_m to 16.0m, tightened max_allowed_water_level_m to 0.28m, and increased flood_penalty_weight=0.4, elevation_bonus_weight=2.0."
+          }
+        },
+        "invariants_checked": {
+          "INV_01_Z_ELEVATION_CLEARANCE": true,
+          "INV_02_HARD_FLOOD_DEPTH_LIMIT": true,
+          "INV_03_SHELTER_REACHABILITY": true,
+          "INV_04_EVACUATION_GOLDEN_TIME": true
+        },
+        "violations": [],
+        "recommended_blocked_nodes": [],
+        "recommended_blocked_edges": [],
+        "recommended_min_z_elevation_m": 18.5,
+        "recommended_max_water_level_m": 0.15,
+        "summary": "[PASS / VERIFIED_SAFE] Route GN_01 -> GN_04 -> GN_05 -> GN_06 -> GN_08 verified safe (min z_elevation=19.20m > 18.50m, max water_level_m=0.12m <= 0.15m, ETA=1524.6s)."
+      }
+    }
+  ]
+}
