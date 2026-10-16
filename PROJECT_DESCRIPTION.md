@@ -23,24 +23,24 @@ Urban flash floods in bowl-shaped, concave metropolitan terrain—most notably t
 
 ---
 
-## 4. How We Built It with Gemini 4 Argon & Antigravity
+## 4. How We Built It: Data Pipeline, Graphify & Loop Engineering with Gemini 4 Argon
 
-### 4.1 Gemini 4 Argon (`gemini-4-argon`, 1M Context Window, `thinking_level="high"`, `background=True`)
-- **Lead Orchestrator & Chief Jury**: Leverages the shared **1M-token context window** (`thinking_level="high"`, `background=True`) to ingest the entire 3D Digital Elevation Model (`data/gangnam_3d_grid.csv`, 64x64 IDW terrain grid), the road network topology (`data/gangnam_graphify.json`), and multi-team candidate codebases simultaneously.
-- **Long-Decode 3D & Physics Synthesis**: Generates the unified 12-control-point Inverse Distance Weighting (IDW) terrain elevation physics model, dynamic flood surface rise functions, and Three.js WebGL rendering shaders with `0.00m` vertical discrepancy between graph nodes and 3D terrain vertices.
-- **Multi-Agent Competitive Tournament**: Orchestrates three specialized engineering teams (**Team Alpha** for A\* Haversine & elevation optimization, **Team Beta** for Three.js 3D WebGL & Google Maps visualization, and **Team Gamma** for full-stack safety invariants) and evaluates them on a strict 100-point rubric (`97.6 / 100` winning build).
+### 4.1 Data Pipeline & Graphify Spatial Knowledge Graph (`make_data.py`)
+- **Real-World Topographic & GIS Anchors**: Anchored on real-world WGS84 coordinates and road networks from **OpenStreetMap (ODbL v1.0)** and actual elevation benchmarks (`13.5m` at the Gangnam Station Underpass up to `41.2m` at Yeoksam Middle School Shelter, modeled after Korea's **V-World 3D DEM** and the 2022 Gangnam extreme flood profile).
+- **Deterministic 3D DEM Interpolation (`data/gangnam_3d_grid.csv`)**: Uses 12 real-world topographic control points with **Inverse-Distance Weighting (IDW)** to generate a reproducible 3D elevation grid (`441` backend validation cells / `4,096` WebGL vertices) with `0.00m` vertical drift inside isolated sandboxes.
+- **Graphify Spatial Topology Conversion (`data/gangnam_graphify.json`)**: Converts continuous 3D terrain and urban road corridors into an elevation-annotated, AI-executable spatial knowledge graph (`Graphify` format: 8 key intersection/shelter nodes and 10 weighted road edges with `z_elevation`, `distance_m`, `water_level_m`, and `is_shelter` attributes) so both LLMs and Python `NetworkX` operate on the exact same topological ground truth.
 
-### 4.2 Antigravity Managed Agent (`antigravity-preview-09-2026`, `environment="remote"`)
-- **Autonomous Sandbox Verification Loop**: Executes Python `NetworkX` (`nx.astar_path`) shortest-path verification inside an isolated sandbox environment (`main.py` & `app.py --verify-json`).
-- **Self-Correction Invariant Enforcement**:
-  - **Iteration #1 (Rejected)**: Detects that the naive shortest route (`GN_01 -> GN_02 -> GN_06 -> GN_08`) violates `z_elevation > 18.5m` and `water_level_m <= 0.15m` at `GN_02 (13.5m)`.
-  - **Iteration #2 (Verified Safe)**: Autonomously applies dynamic flood-depth penalties and re-solves the A\* path over high-ground ridges (`GN_01 [19.2m] -> GN_04 [22.8m] -> GN_05 [38.5m] -> GN_06 [34.0m] -> GN_08 [41.2m]`), outputting `[SUCCESS] Verified by Python A* Algorithm`.
+### 4.2 Multi-Agent Team Built via Dual-Loop Engineering (`Gemini 4 Argon` + `Antigravity`)
+Instead of relying on single-shot LLM prompts that hallucinate unsafe routes, we engineered our multi-agent system around **Dual-Loop Engineering**:
+1. **Inner Loop — Autonomous Sandbox Verification & Self-Correction Loop (`antigravity-preview-09-2026` + `gemini-3.8-flash`)**:
+   - **`gemini-3.8-flash` (Data & Schema Validator)** validates the Graphify JSON topology and DEM CSV integrity in parallel (`~1.04ms`).
+   - **`antigravity-preview-09-2026` (Sandbox Verification Agent)** executes deterministic Python `NetworkX` A\* (`nx.astar_path`) against `gangnam_graphify.json` inside an isolated Linux sandbox.
+   - **Closed-Loop Self-Correction**: When **Iteration #1** (`GN_01 -> GN_02 -> GN_06 -> GN_08`, `850m`) fails the flood safety invariant at `GN_02` (`z_elevation = 13.5m <= 18.5m`, `water_level_m = 0.45m > 0.15m`), the loop automatically feeds the constraint violation back, blacklists flooded nodes, increases elevation penalty weights, and converges in **Iteration #2** on the verified high-ground ridge route (`GN_01 [19.2m] -> GN_04 [22.8m] -> GN_05 [38.5m] -> GN_06 [34.0m] -> GN_08 [41.2m]`), outputting `[SUCCESS] Verified by Python A* Algorithm`.
+2. **Outer Loop — 3-Team Competitive Tournament & Argon Chief Jury Loop (`gemini-4-argon` + `gemini-3.5-flash-lite`)**:
+   - **`gemini-4-argon` (`1M Context`, `thinking_level="high"`, `background=True`)** orchestrates three competing subagent teams (**Team Alpha** for A\* heuristics, **Team Beta** for Three.js 3D WebGL, **Team Gamma** for full-stack safety invariants) within its shared 1M-token context window.
+   - Every candidate build is audited by the Inner Sandbox Loop and scored on a 100-point rubric (`tournament_pipeline.py`). Disqualified builds (Alpha: `47.0`, Beta: `44.0`) are rejected, and the winning build (**Team Gamma: `97.6 / 100`**) is promoted with mandatory **Human-in-the-Loop (HITL)** guardrails enforced by **`gemini-3.5-flash-lite`**.
 
-### 4.3 Fast Leaf Worker (`gemini-3.8-flash`) & Legal/Safety Guardrail (`gemini-3.5-flash-lite`)
-- **`gemini-3.8-flash`**: Performs parallel CSV/JSON dataset schema validation and sub-millisecond graph serialization (`~1.04ms` API response time).
-- **`gemini-3.5-flash-lite`**: Enforces V-World 3D DEM & OpenStreetMap (ODbL v1.0) open GIS license attribution and attaches the mandatory Human-in-the-Loop (`AI-Assisted Evacuation Disclaimer`) gate.
-
-### 4.4 Google Cloud Run Production Deployment
+### 4.3 Google Cloud Run Serverless Production Deployment
 - Fully containerized **FastAPI + Three.js WebGL + Google Maps** application (`Dockerfile`) deployed to **Google Cloud Run** (`asia-northeast3`, Project `h2gdm-hack26icn-2618`) serving real-time REST endpoints (`/api/evacuation-route`, `/api/grid`, `/api/graph`) and interactive 3D visualization over HTTPS.
 
 ---
