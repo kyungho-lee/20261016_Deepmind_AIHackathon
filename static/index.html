@@ -224,69 +224,72 @@
     #escape-hud {
       display: none;
       position: absolute;
-      top: 12px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 640px;
-      max-width: calc(100vw - 820px);
-      min-width: 440px;
-      background: rgba(15, 23, 42, 0.94);
-      border: 1.5px solid rgba(249, 115, 22, 0.75);
-      border-radius: 14px;
-      padding: 11px 15px;
+      width: 530px;
+      max-width: calc(100vw - 470px);
+      min-width: 380px;
+      background: rgba(15, 23, 42, 0.84);
+      border: 1px solid rgba(249, 115, 22, 0.70);
+      border-radius: 11px;
+      padding: 7px 11px;
       z-index: 25;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
     }
     @keyframes pulseAlert {
-      0%, 100% { background: rgba(220, 38, 38, 0.28); border-color: #ef4444; }
-      50% { background: rgba(234, 88, 12, 0.48); border-color: #facc15; }
+      0%, 100% { background: rgba(220, 38, 38, 0.25); border-color: #ef4444; }
+      50% { background: rgba(234, 88, 12, 0.42); border-color: #facc15; }
     }
     .cbs-banner {
-      background: rgba(220, 38, 38, 0.28);
+      background: rgba(220, 38, 38, 0.25);
       border: 1px solid #ef4444;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 11.5px;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 10.5px;
       font-weight: 800;
       color: #fef08a;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: pulseAlert 1.6s infinite;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
     .esc-telemetry-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-      margin-bottom: 8px;
+      gap: 5px;
+      margin-bottom: 6px;
     }
     .esc-card {
-      background: rgba(30, 41, 59, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      border-radius: 8px;
-      padding: 6px 8px;
+      background: rgba(30, 41, 59, 0.82);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 6px;
+      padding: 4px 6px;
     }
     .esc-label {
-      font-size: 9.5px;
+      font-size: 8.5px;
       color: #94a3b8;
       text-transform: uppercase;
       font-weight: 700;
     }
     .esc-val {
-      font-size: 12.5px;
+      font-size: 11px;
       font-weight: 800;
       color: #f8fafc;
-      margin-top: 2px;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .health-track {
       width: 100%;
-      height: 6px;
+      height: 4px;
       background: #1e293b;
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
-      margin-top: 4px;
+      margin-top: 3px;
     }
     .health-fill {
       height: 100%;
@@ -297,17 +300,17 @@
     .esc-actions-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px;
       align-items: center;
       justify-content: space-between;
     }
     .esc-btn {
-      background: rgba(30, 41, 59, 0.95);
-      border: 1px solid rgba(56, 189, 248, 0.45);
+      background: rgba(30, 41, 59, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.42);
       color: #e2e8f0;
-      border-radius: 6px;
-      padding: 5px 9px;
-      font-size: 11px;
+      border-radius: 5px;
+      padding: 4px 7px;
+      font-size: 10px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
@@ -334,11 +337,11 @@
     }
     .dpad-group {
       display: inline-flex;
-      gap: 3px;
+      gap: 2px;
       align-items: center;
       background: rgba(15, 23, 42, 0.8);
-      padding: 2px 5px;
-      border-radius: 6px;
+      padding: 2px 4px;
+      border-radius: 5px;
       border: 1px solid rgba(148, 163, 184, 0.25);
     }
     .dpad-btn {
@@ -346,9 +349,9 @@
       color: #38bdf8;
       border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 4px;
-      width: 24px;
-      height: 22px;
-      font-size: 10px;
+      width: 21px;
+      height: 19px;
+      font-size: 9px;
       font-weight: 800;
       cursor: pointer;
       user-select: none;
@@ -363,14 +366,74 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 440px;
-      background: rgba(15, 23, 42, 0.97);
+      width: 420px;
+      background: rgba(15, 23, 42, 0.96);
       border: 2px solid #10b981;
-      border-radius: 16px;
-      padding: 18px 20px;
+      border-radius: 14px;
+      padding: 16px 18px;
       z-index: 40;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
       text-align: center;
+    }
+
+    /* Compact Surrounding HUD Mode when Training Mode is Active */
+    body.training-mode-active #hud-panel {
+      width: 215px;
+      padding: 8px 10px;
+      background: rgba(15, 23, 42, 0.76);
+      border-radius: 10px;
+    }
+    body.training-mode-active #hud-panel .badge,
+    body.training-mode-active #hud-panel .subtitle,
+    body.training-mode-active #hud-panel .metric-grid,
+    body.training-mode-active #hud-panel .route-box,
+    body.training-mode-active #hud-panel .legend-row,
+    body.training-mode-active #hud-panel .jury-box,
+    body.training-mode-active #hud-panel .btn-escape-launch,
+    body.training-mode-active #hud-panel .btn-hitl {
+      display: none !important;
+    }
+    body.training-mode-active #hud-panel h1 {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    body.training-mode-active #hud-panel .cam-toolbar {
+      margin-bottom: 6px;
+      gap: 3px;
+    }
+    body.training-mode-active #hud-panel .cam-btn {
+      padding: 4px 3px;
+      font-size: 9.5px;
+    }
+    body.training-mode-active #hud-panel .slider-row {
+      margin-top: 2px;
+      font-size: 10px;
+    }
+
+    body.training-mode-active #map-panel {
+      width: 210px;
+      padding: 7px 8px;
+      background: rgba(15, 23, 42, 0.76);
+      border-radius: 10px;
+    }
+    body.training-mode-active #map-panel h2 {
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    body.training-mode-active #map-panel .subtitle,
+    body.training-mode-active #map-panel .gmaps-btn,
+    body.training-mode-active #map-panel .mini-hide-training {
+      display: none !important;
+    }
+    body.training-mode-active #map-panel #map-viewport {
+      height: 112px !important;
+      margin-bottom: 0;
+    }
+
+    body.training-mode-active #disclaimer-banner {
+      padding: 4px 10px;
+      font-size: 9.5px;
+      opacity: 0.55;
     }
   </style>
 </head>
@@ -380,75 +443,79 @@
   <!-- Top-Center Interactive Disaster Escape Gamification HUD (Movie 2012 Vehicle Escape Motif) -->
   <div id="escape-hud">
     <div class="cbs-banner" id="cbsBanner">
-      <span id="cbsBannerText">🚨 [영화 2012 모드: 긴급재난발령] 강남역 대홍수 해일 상승 중! 차량으로 AI 녹색 능선을 따라 대피소(41.2m)로 질주하세요!</span>
-      <span id="escTimerBadge" style="background:#0f172a;color:#38bdf8;padding:2px 7px;border-radius:5px;font-family:monospace;white-space:nowrap;">⏱️ 00:00.0</span>
+      <span id="cbsBannerText">🚨 [긴급재난발령] 강남역 홍수 수위 급상승 중! 가만히 있으면 침수됩니다 — WASD 운전 또는 [🤖 AI 자율질주]로 탈출하세요!</span>
+      <span id="escTimerBadge" style="background:#0f172a;color:#38bdf8;padding:2px 6px;border-radius:4px;font-family:monospace;white-space:nowrap;">⏱️ 0.0s</span>
     </div>
 
     <div class="esc-telemetry-grid">
       <div class="esc-card">
-        <div class="esc-label">탈출 차량 상태 / 주행속도</div>
-        <div class="esc-val" id="escModeText" style="color:#38bdf8;">🚗 HERO SUV (84 km/h)</div>
+        <div class="esc-label">차량 동력계 / 주행속도</div>
+        <div class="esc-val" id="escModeText" style="color:#38bdf8;">⛽ 내연기관 대기 (0 km/h)</div>
       </div>
       <div class="esc-card">
-        <div class="esc-label">차량 고도 vs 추격 홍수수위</div>
-        <div class="esc-val" id="escElevText" style="color:#34d399;">19.2m / 수위 15.5m</div>
+        <div class="esc-label">차량 고도 vs 상승 홍수위</div>
+        <div class="esc-val" id="escElevText" style="color:#34d399;">19.2m / 수위 17.5m</div>
       </div>
       <div class="esc-card">
-        <div class="esc-label">차량 엔진 내구도 &amp; 수심</div>
-        <div class="esc-val" id="escHealthText" style="color:#10b981;">100% 정상 (수심 0.00m)</div>
+        <div class="esc-label" id="escHealthLabel">엔진 흡기 한계(0.38m) &amp; 내구도</div>
+        <div class="esc-val" id="escHealthText" style="color:#10b981;">100% (수심 0.00m)</div>
         <div class="health-track"><div class="health-fill" id="escHealthBar"></div></div>
       </div>
       <div class="esc-card">
-        <div class="esc-label">다음 AI 가이드 체크포인트</div>
+        <div class="esc-label">다음 AI 고지대 체크포인트</div>
         <div class="esc-val" id="escTargetText" style="color:#facc15;">GN_04 능선 (22.8m)</div>
       </div>
     </div>
 
     <div class="esc-actions-row">
+      <div class="dpad-group" title="내연기관(흡기 침수 0.38m 시동꺼짐) vs 전기차(IP68 밀폐로 0.78m까지 구동 유지, 0.80m 이상 부력 표류)">
+        <button class="esc-btn" id="btnVehicleICE" onclick="setVehiclePowertrain('ice')" style="background:rgba(249,115,22,0.28);border-color:#f97316;color:#ffedd5;">⛽ 내연기관</button>
+        <button class="esc-btn" id="btnVehicleEV" onclick="setVehiclePowertrain('ev')">⚡ 전기차(EV)</button>
+      </div>
       <div class="dpad-group" title="키보드 WASD / 방향키 또는 마우스 클릭으로 차량 조종">
-        <span style="font-size:10px;color:#94a3b8;margin-right:2px;">운전(WASD):</span>
         <button class="dpad-btn" onmousedown="setPadKey('left',true)" onmouseup="setPadKey('left',false)" onmouseleave="setPadKey('left',false)">◀</button>
         <button class="dpad-btn" onmousedown="setPadKey('up',true)" onmouseup="setPadKey('up',false)" onmouseleave="setPadKey('up',false)">▲</button>
         <button class="dpad-btn" onmousedown="setPadKey('down',true)" onmouseup="setPadKey('down',false)" onmouseleave="setPadKey('down',false)">▼</button>
         <button class="dpad-btn" onmousedown="setPadKey('right',true)" onmouseup="setPadKey('right',false)" onmouseleave="setPadKey('right',false)">▶</button>
       </div>
-      <button class="esc-btn primary" onclick="triggerAutoPilotSafeRoute()">🤖 AI 가이드 자율질주</button>
-      <button class="esc-btn danger" onclick="triggerFloodedBasinTrapDemo()">🌊 저지대(GN_02) 침수고립 체험</button>
-      <button class="esc-btn bailout" id="bailoutBtn" onclick="triggerVehicleTurboBoost()">⚡ 풀악셀 부스트(Space)</button>
-      <button class="esc-btn" onclick="resetEscapeSimulation()">🔄 리셋</button>
-      <button class="esc-btn" onclick="exitEscapeTrainingMode()">✖ 관제복귀</button>
+      <button class="esc-btn primary" onclick="triggerAutoPilotSafeRoute()">🤖 AI 자율질주</button>
+      <button class="esc-btn danger" onclick="triggerFloodedBasinTrapDemo()">🌊 저지대(GN_02) 침수실험</button>
+      <button class="esc-btn bailout" id="bailoutBtn" onclick="triggerVehicleTurboBoost()">⚡ 부스트(Space)</button>
+      <button class="esc-btn" onclick="resetEscapeSimulation('manual')">🔄 대기리셋</button>
+      <button class="esc-btn" onclick="exitEscapeTrainingMode()">✖ 복귀</button>
     </div>
   </div>
 
-  <!-- Mission Complete / Training Debriefing Modal -->
+  <!-- Mission Complete / Escape Failure Debriefing Modal -->
   <div id="escape-result-modal">
-    <div style="font-size:11px;font-weight:800;color:#38bdf8;letter-spacing:1px;text-transform:uppercase;">GeoRescue 3D — Disaster Drill Debriefing</div>
-    <h2 id="modalRankTitle" style="font-size:18px;font-weight:900;color:#34d399;margin:6px 0;">🏆 S-RANK: 골든타임 완벽 탈출 성공!</h2>
-    <p id="modalSummaryText" style="font-size:12px;color:#e2e8f0;line-height:1.5;margin-bottom:12px;">
+    <div id="modalHeaderTag" style="font-size:10.5px;font-weight:800;color:#38bdf8;letter-spacing:1px;text-transform:uppercase;">GeoRescue 3D — Disaster Drill Debriefing</div>
+    <h2 id="modalRankTitle" style="font-size:17px;font-weight:900;color:#34d399;margin:5px 0;">🏆 S-RANK: 골든타임 완벽 탈출 성공!</h2>
+    <p id="modalSummaryText" style="font-size:11.5px;color:#e2e8f0;line-height:1.45;margin-bottom:10px;">
       실시간 차오르는 홍수 수위를 피해 AI 검증 고지대 능선 경로(GN_01 &rarr; GN_04 &rarr; GN_05 &rarr; GN_06 &rarr; GN_08)를 따라 안전지대(41.2m)에 무사히 도착했습니다!
     </p>
-    <div class="metric-grid" style="text-align:left;margin-bottom:12px;">
+    <div class="metric-grid" style="text-align:left;margin-bottom:10px;">
       <div class="metric-card">
-        <div class="metric-label">탈출 소요 시간</div>
+        <div class="metric-label" id="modalLabel1">탈출 소요 시간</div>
         <div class="metric-value" id="modalTimeVal" style="color:#38bdf8;">18.4초</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">최종 도달 고도</div>
-        <div class="metric-value" style="color:#34d399;">41.2m (GN_08 대피소)</div>
+        <div class="metric-label" id="modalLabel2">최종 차량 위치 / 고도</div>
+        <div class="metric-value" id="modalElevVal" style="color:#34d399;">41.2m (GN_08 대피소)</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">도착 시점 강남역 수위</div>
-        <div class="metric-value" id="modalFloodVal" style="color:#f87171;">19.1m (저지대 완파)</div>
+        <div class="metric-label" id="modalLabel3">당시 홍수위 / 침수심</div>
+        <div class="metric-value" id="modalFloodVal" style="color:#f87171;">19.1m (수심 0.0m)</div>
       </div>
       <div class="metric-card">
-        <div class="metric-label">탈출 방식</div>
+        <div class="metric-label" id="modalLabel4">동력계 물리 판정</div>
         <div class="metric-value" id="modalModeVal" style="color:#facc15;">🚗 차량 무정차 주파</div>
       </div>
     </div>
-    <div style="display:flex;gap:8px;justify-content:center;">
-      <button class="esc-btn primary" style="padding:8px 14px;font-size:12px;" onclick="resetEscapeSimulation()">🔄 다시 훈련하기</button>
-      <button class="esc-btn danger" style="padding:8px 14px;font-size:12px;" onclick="triggerFloodedBasinTrapDemo()">⚠️ 침수구간(GN_02) 시동꺼짐 체험</button>
-      <button class="esc-btn" style="padding:8px 14px;font-size:12px;" onclick="exitEscapeTrainingMode()">✖ 관제 화면으로</button>
+    <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+      <button class="esc-btn primary" style="padding:7px 11px;font-size:11px;" onclick="resetEscapeSimulation('autopilot')">🤖 AI 고지대 자율질주로 탈출 보기</button>
+      <button class="esc-btn bailout" style="padding:7px 11px;font-size:11px;" onclick="togglePowertrainAndRetry()">⚡ 내연기관↔전기차 전환 후 재도전</button>
+      <button class="esc-btn" style="padding:7px 11px;font-size:11px;" onclick="resetEscapeSimulation('manual')">🔄 직접 운전(대기) 재도전</button>
+      <button class="esc-btn" style="padding:7px 11px;font-size:11px;" onclick="exitEscapeTrainingMode()">✖ 관제 복귀</button>
     </div>
   </div>
 
@@ -523,7 +590,7 @@
 
   <!-- Right Panel: Real-World Gangnam WGS84 Map, Elevation Profile & Google Maps Integration -->
   <div id="map-panel">
-    <h2>&#128506; Gangnam WGS84 Map &amp; Elevation Profile</h2>
+    <h2>&#128506; Gangnam WGS84 Mini-Radar</h2>
     <div class="subtitle" style="margin-bottom:6px;">
       Synced Bounds: <code>37.492°N–37.504°N, 127.020°E–127.038°E</code>
     </div>
@@ -533,7 +600,7 @@
       <div id="googleMapDiv"></div>
     </div>
 
-    <div style="margin-bottom:8px; background:#091122; border:1px solid rgba(56,189,248,0.28); border-radius:8px; padding:6px;">
+    <div class="mini-hide-training" style="margin-bottom:8px; background:#091122; border:1px solid rgba(56,189,248,0.28); border-radius:8px; padding:6px;">
       <div style="font-size:10.5px; color:#93c5fd; font-weight:700; margin-bottom:4px;">
         &#9968; Route Topographic Elevation Profile (Terrain vs Flood Plane)
       </div>
@@ -545,7 +612,7 @@
       &#128205; Open Verified Walking Route in Google Maps &nearr;
     </a>
 
-    <div style="font-size:10px; color:#94a3b8;">
+    <div class="mini-hide-training" style="font-size:10px; color:#94a3b8;">
       Optional Live Google Maps JS API Key (<a href="https://mapsplatform.google.com/maps-demo-key?utm_campaign=gmp_git_agentskills_v1" target="_blank" style="color:#38bdf8;">Get Demo Key</a>):
       <div class="key-row">
         <input id="gmapsKeyInput" type="password" placeholder="Paste GOOGLE_MAPS_API_KEY for 3D/2D tiles..." />
@@ -1185,6 +1252,19 @@
         ctx.fillText(n.id + " (" + n.y + "m)", p.x + 6, p.y + 3);
       });
 
+      if (typeof heroPos !== "undefined" && heroPos) {
+        const heroLon = 127.024950 + ((heroPos.x - (-45)) / 110.0) * (127.034850 - 127.024950);
+        const heroLat = 37.496500 - ((heroPos.z - 25) / 80.0) * (37.499500 - 37.493500);
+        const hp = latLonToCanvas(heroLat, heroLon, w, h);
+        ctx.fillStyle = (typeof vehiclePowertrain !== "undefined" && vehiclePowertrain === "ev") ? "#06b6d4" : "#f97316";
+        ctx.beginPath();
+        ctx.arc(hp.x, hp.y, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2.0;
+        ctx.stroke();
+      }
+
       ctx.fillStyle = "#94a3b8";
       ctx.font = "9.5px monospace";
       ctx.fillText("WGS84 3D/2D Exact Topographic Sync", 8, h - 5);
@@ -1384,10 +1464,13 @@
     }
 
     function setCameraMode(mode) {
-      if (mode !== "escape" && escapeGameActive) {
-        escapeGameActive = false;
-        document.getElementById("escape-hud").style.display = "none";
-        document.getElementById("escape-result-modal").style.display = "none";
+      if (mode !== "escape") {
+        document.body.classList.remove("training-mode-active");
+        if (escapeGameActive) {
+          escapeGameActive = false;
+          document.getElementById("escape-hud").style.display = "none";
+          document.getElementById("escape-result-modal").style.display = "none";
+        }
       }
       camMode = mode;
       document.getElementById("camOrbit").classList.toggle("active", mode === "orbit");
@@ -1755,32 +1838,72 @@
       return { x, y, z, yaw };
     }
 
-    function alignCarToTerrain(carMesh, x, z, yaw, floodZ) {
+    function alignCarToTerrain(carMesh, x, z, yaw, floodZ, isEv) {
       const y = getTerrainElevation(x, z);
       const step = 1.8;
       const frontY = getTerrainElevation(x + Math.sin(yaw) * step, z + Math.cos(yaw) * step);
       const pitch = Math.atan2(frontY - y, step);
       const waterDepth = Math.max(0, floodZ - y);
-      // Float/bob slightly if submerged in deep basin water
-      const floatOffset = waterDepth > 0.45 ? Math.min(1.2, (waterDepth - 0.45) * 0.35) + Math.sin(Date.now() * 0.008 + x) * 0.18 : 0;
+      // Buoyancy threshold: ICE floats/bobs above 0.45m; heavier IP68 EV battery pack stays planted until 0.78m, then floats!
+      const buoyThreshold = isEv ? 0.78 : 0.45;
+      const floatOffset = waterDepth > buoyThreshold
+        ? Math.min(1.35, (waterDepth - buoyThreshold) * 0.42) + Math.sin(Date.now() * 0.008 + x) * 0.22
+        : 0;
+      const rollSway = waterDepth > buoyThreshold ? Math.cos(Date.now() * 0.007 + z) * 0.14 : 0;
 
       carMesh.position.set(x, y + 0.15 + floatOffset, z);
-      carMesh.rotation.set(-pitch, yaw, 0);
+      carMesh.rotation.set(-pitch, yaw, rollSway);
       return { y, waterDepth };
     }
 
-    // Escape Simulation State
+    // Escape Simulation State & ICE vs EV Powertrain Physics
     let escapeGameActive = false;
-    let escControlMode = "autopilot"; // "manual" | "autopilot" | "trap_demo"
+    let vehiclePowertrain = "ice"; // "ice" (내연기관: 0.38m 흡기침수 시동꺼짐) | "ev" (전기차 IP68: 0.78m까지 구동유지, 0.80m+ 부력 표류/BMS 차단)
+    let escControlMode = "manual"; // "manual" (가만히 있으면 침수됨!) | "autopilot" | "trap_demo"
     let escFinished = false;
     let escElapsedSec = 0;
-    let escFloodZ = 15.2;
+    let escFloodZ = 17.5;
     let heroPos = { x: nodesMap.GN_01.x, z: nodesMap.GN_01.z, yaw: 0.18, speed: 0 };
     let heroHealth = 100.0;
     let turboTimer = 0.0;
     let nextWpIndex = 1; // Index in escapeWaypoints (1 = GN_04)
     let shakeIntensity = 0.0;
     let usedTurboCount = 0;
+
+    function setVehiclePowertrain(type) {
+      vehiclePowertrain = type === "ev" ? "ev" : "ice";
+      const iceBtn = document.getElementById("btnVehicleICE");
+      const evBtn = document.getElementById("btnVehicleEV");
+      const labelEl = document.getElementById("escHealthLabel");
+      if (vehiclePowertrain === "ev") {
+        if (iceBtn) { iceBtn.style.background = ""; iceBtn.style.borderColor = ""; iceBtn.style.color = ""; }
+        if (evBtn) { evBtn.style.background = "rgba(6, 182, 212, 0.32)"; evBtn.style.borderColor = "#06b6d4"; evBtn.style.color = "#cffafe"; }
+        if (labelEl) labelEl.innerHTML = "⚡ EV IP68 배터리(0.78m 방수) &amp; 부력한계";
+        // Tint Hero SUV chassis cyan-emerald for EV mode
+        if (heroCar.children[0] && heroCar.children[0].material) {
+          heroCar.children[0].material.color.setHex(0x06b6d4);
+        }
+        document.getElementById("cbsBannerText").textContent =
+          "⚡ [전기차(EV IP68) 모드] 흡기구가 없어 수심 0.78m까지 시동이 꺼지지 않고 돌파합니다! (단, 0.80m 초과 시 차체 부유 표류 및 BMS 차단)";
+      } else {
+        if (evBtn) { evBtn.style.background = ""; evBtn.style.borderColor = ""; evBtn.style.color = ""; }
+        if (iceBtn) { iceBtn.style.background = "rgba(249, 115, 22, 0.28)"; iceBtn.style.borderColor = "#f97316"; iceBtn.style.color = "#ffedd5"; }
+        if (labelEl) labelEl.innerHTML = "⛽ 내연기관 흡기한계(0.38m) &amp; 엔진내구도";
+        if (heroCar.children[0] && heroCar.children[0].material) {
+          heroCar.children[0].material.color.setHex(0xf97316);
+        }
+        document.getElementById("cbsBannerText").textContent =
+          "⛽ [내연기관(ICE) 모드] 수심 0.38m 이상 침수 시 흡기구 역류(Hydro-lock)로 시동이 즉시 꺼집니다! 물이 차오르기 전에 출발하세요!";
+      }
+      if (escapeGameActive && escFinished) {
+        resetEscapeSimulation("manual");
+      }
+    }
+
+    function togglePowertrainAndRetry() {
+      setVehiclePowertrain(vehiclePowertrain === "ice" ? "ev" : "ice");
+      resetEscapeSimulation("manual");
+    }
 
     const keyState = { up: false, down: false, left: false, right: false };
     function setPadKey(dir, val) {
@@ -1810,13 +1933,15 @@
     });
 
     function resetEscapeSimulation(startMode) {
+      document.body.classList.add("training-mode-active");
       escapeGameActive = true;
       escFinished = false;
-      escControlMode = startMode || "autopilot";
+      // Default to "manual" standby so standing still lets rising floodwater submerge the car!
+      escControlMode = startMode || "manual";
       escElapsedSec = 0;
-      escFloodZ = 15.2;
+      escFloodZ = 17.5; // Starts at 17.5m and rises +0.46m/s -> reaches GN_01 (19.2m) in ~3.7 seconds if stationary!
       heroHealth = 100.0;
-      turboTimer = 0.8;
+      turboTimer = escControlMode === "autopilot" ? 0.8 : 0.0;
       nextWpIndex = 1;
       shakeIntensity = 0.35;
 
@@ -1825,16 +1950,25 @@
       heroPos.x = startNode.x;
       heroPos.z = startNode.z;
       heroPos.yaw = Math.atan2(firstTarget.x - startNode.x, firstTarget.z - startNode.z);
-      heroPos.speed = 18.0;
+      heroPos.speed = escControlMode === "manual" ? 0.0 : 18.0;
 
       checkpointGates.forEach(g => {
         g.cleared = false;
         g.mat.color.setHex(g.id === "GN_08" ? 0x10b981 : 0x38bdf8);
       });
 
+      const modalEl = document.getElementById("escape-result-modal");
+      modalEl.style.display = "none";
+      modalEl.style.borderColor = "#10b981";
       document.getElementById("escape-hud").style.display = "block";
-      document.getElementById("escape-result-modal").style.display = "none";
       document.getElementById("waterSlider").value = escFloodZ.toFixed(1);
+
+      if (escControlMode === "manual") {
+        document.getElementById("cbsBannerText").textContent =
+          vehiclePowertrain === "ev"
+            ? "🚨 [돌발 홍수 상승 중!] 가만히 있으면 강남역(19.2m)도 수몰됩니다! (⚡전기차는 0.78m 수심까지 시동 유지 — WASD 또는 AI 자율질주 클릭!)"
+            : "🚨 [돌발 홍수 상승 중!] 가만히 있으면 4초 뒤 강남역(19.2m)이 침수되어 내연기관 시동이 꺼집니다! (WASD 운전 또는 AI 자율질주 클릭!)";
+      }
       updateFloodLevel(escFloodZ);
       playDisasterSound("cbs_siren");
     }
@@ -1842,16 +1976,19 @@
     function startEscapeTrainingMode() {
       camMode = "escape";
       autoRotate = false;
+      document.body.classList.add("training-mode-active");
       document.getElementById("camOrbit").classList.remove("active");
       document.getElementById("camTop").classList.remove("active");
       document.getElementById("camRoute").classList.remove("active");
       const escBtn = document.getElementById("camEscape");
       if (escBtn) escBtn.classList.add("active");
-      resetEscapeSimulation("autopilot");
+      // Start in "manual" standby so the player experiences the water rising & submerging the car if they stay still!
+      resetEscapeSimulation("manual");
     }
 
     function exitEscapeTrainingMode() {
       escapeGameActive = false;
+      document.body.classList.remove("training-mode-active");
       document.getElementById("escape-hud").style.display = "none";
       document.getElementById("escape-result-modal").style.display = "none";
       updateFloodLevel(18.5);
@@ -1861,16 +1998,20 @@
 
     function triggerAutoPilotSafeRoute() {
       if (!escapeGameActive) startEscapeTrainingMode();
-      // If currently trapped in low basin (GN_02), recover onto nearest safe slope
+      escFinished = false;
+      document.getElementById("escape-result-modal").style.display = "none";
       const curY = getTerrainElevation(heroPos.x, heroPos.z);
-      if (curY < 18.2 || heroHealth <= 10) {
+      if (curY < 18.2 || heroHealth <= 15) {
         heroPos.x = nodesMap.GN_01.x;
         heroPos.z = nodesMap.GN_01.z;
         nextWpIndex = 1;
         heroHealth = 100.0;
+        escFloodZ = Math.min(escFloodZ, 18.4);
       }
       escControlMode = "autopilot";
       turboTimer = 1.6;
+      document.getElementById("cbsBannerText").textContent =
+        "🤖 [AI 자율질주 가동] 침수 저지대를 회피하여 고지대 능선(GN_04 22.8m → GN_05 38.5m → GN_08 41.2m)으로 긴급 탈출합니다!";
       playDisasterSound("turbo");
     }
 
@@ -1878,7 +2019,9 @@
       if (!escapeGameActive) startEscapeTrainingMode();
       resetEscapeSimulation("trap_demo");
       document.getElementById("cbsBannerText").textContent =
-        "⚠️ [저지대 진입 경보] 네비게이션 최단경로(GN_02 강남역 지하차도, 13.5m) 진입 중! 급격한 침수 위험!";
+        vehiclePowertrain === "ev"
+          ? "⚠️ [저지대 침수 실험 — ⚡전기차 EV] 수심 0.78m까지는 시동이 안 꺼지고 전진하지만, GN_02 심층 침수지(수심 2m+) 진입 시 부력으로 표류합니다!"
+          : "⚠️ [저지대 침수 실험 — ⛽내연기관 ICE] 강남역 지하차도(GN_02, 13.5m) 진입 시 수심 0.38m 돌파 즉시 흡기 침수로 시동이 꺼집니다!";
     }
 
     function triggerVehicleTurboBoost() {
@@ -1891,17 +2034,76 @@
       shakeIntensity = 0.55;
       playDisasterSound("turbo");
 
-      // If car was stalled in deep floodwater (GN_02), Emergency Escape Boost blasts back toward high ground!
-      if (heroHealth <= 20 || escControlMode === "trap_demo") {
+      if (heroHealth <= 30 || escControlMode === "trap_demo" || heroPos.speed < 2.0) {
         escControlMode = "autopilot";
-        heroHealth = Math.max(65, heroHealth);
+        heroHealth = Math.max(70, heroHealth);
         document.getElementById("cbsBannerText").textContent =
-          "⚡ [풀악셀 긴급 탈출 가동!] 침수 저지대를 벗어나 AI 고지대 능선(GN_04 -> GN_05)으로 긴급 우회합니다!";
+          "⚡ [긴급 탈출 부스트 가동!] 차오르는 홍수를 뚫고 AI 고지대 능선(GN_04 → GN_05)으로 전속력 돌파합니다!";
       }
     }
 
+    function showEscapeResultModal(isSuccess, alignedY, waterDepth) {
+      escFinished = true;
+      const modalEl = document.getElementById("escape-result-modal");
+      const headerTag = document.getElementById("modalHeaderTag");
+      const titleEl = document.getElementById("modalRankTitle");
+      const summaryEl = document.getElementById("modalSummaryText");
+
+      if (isSuccess) {
+        playDisasterSound("victory");
+        modalEl.style.borderColor = "#10b981";
+        headerTag.style.color = "#38bdf8";
+        headerTag.textContent = "GeoRescue 3D — Golden Time Escape Verified";
+        titleEl.style.color = "#34d399";
+        titleEl.textContent = "🏆 S-RANK: 골든타임 고지대 대피소 탈출 성공!";
+        summaryEl.innerHTML =
+          (vehiclePowertrain === "ev"
+            ? "<strong>[⚡ 전기차(EV IP68) 특성 활용]</strong> 밀폐형 배터리 팩 덕분에 초기 침수 노면을 시동 꺼짐 없이 돌파하여 "
+            : "<strong>[⛽ 내연기관(ICE) 조기 대피 성공]</strong> 흡기구 침수 한계(0.38m) 도달 전에 저지대를 신속히 이탈하여 ") +
+          "AI 고지대 능선 경로(<code>GN_01 → GN_04 → GN_05 → GN_06 → GN_08</code>)를 통해 해발 <strong>41.2m 대피소</strong>에 도착했습니다!";
+        document.getElementById("modalLabel1").textContent = "탈출 소요 시간";
+        document.getElementById("modalTimeVal").textContent = escElapsedSec.toFixed(1) + "초 (골든타임 내)";
+        document.getElementById("modalLabel2").textContent = "최종 도달 고도";
+        document.getElementById("modalElevVal").textContent = "41.2m (GN_08 안전지대)";
+        document.getElementById("modalElevVal").style.color = "#34d399";
+        document.getElementById("modalLabel3").textContent = "도착 시점 강남역 홍수위";
+        document.getElementById("modalFloodVal").textContent = escFloodZ.toFixed(1) + "m (저지대 수몰)";
+        document.getElementById("modalLabel4").textContent = "동력계 물리 판정";
+        document.getElementById("modalModeVal").textContent =
+          vehiclePowertrain === "ev" ? "⚡ EV IP68 방수 능선 돌파" : "⛽ ICE 무침수 고지대 주파";
+      } else {
+        playDisasterSound("stall");
+        modalEl.style.borderColor = "#ef4444";
+        headerTag.style.color = "#f87171";
+        headerTag.textContent = "GeoRescue 3D — CRITICAL SUBMERGENCE FAILURE";
+        titleEl.style.color = "#ef4444";
+        if (vehiclePowertrain === "ev") {
+          titleEl.textContent = "🚨 탈출 실패: 전기차(EV) 차체 부유 표류 및 BMS 고전압 차단!";
+          summaryEl.innerHTML =
+            "<strong>[⚡ 전기차(EV) 심층 침수 물리 판정]</strong> 전기차는 흡기구가 없어 <strong>수심 0.78m까지 시동이 꺼지지 않고 버텼으나</strong>, " +
+            "계속 차오른 홍수위(<strong>수심 " + waterDepth.toFixed(2) + "m</strong>)로 인해 <strong>차체 부력(Buoyancy)으로 타이어 접지력을 상실</strong>하고 고전압 <strong>BMS 안전 차단 릴레이</strong>가 작동해 고립되었습니다!";
+        } else {
+          titleEl.textContent = "🚨 탈출 실패: 내연기관(ICE) 흡기구 침수 및 엔진 시동 정지!";
+          summaryEl.innerHTML =
+            "<strong>[⛽ 내연기관(ICE) 침수 물리 판정]</strong> 출발 지연 또는 저지대 진입으로 인해 차오른 물이 <strong>엔진 흡기·배기 한계선(0.38m)</strong>을 넘어 " +
+            "(<strong>현재 수심 " + waterDepth.toFixed(2) + "m</strong>) 실린더 수격 현상(Hydro-lock)으로 <strong>시동이 즉시 꺼지며 침수 고립</strong>되었습니다! (전기차 전환 시 0.78m까지 구동 유지 가능)";
+        }
+        document.getElementById("modalLabel1").textContent = "고립 경과 시간";
+        document.getElementById("modalTimeVal").textContent = escElapsedSec.toFixed(1) + "초 (침수 고립)";
+        document.getElementById("modalLabel2").textContent = "침수 고립 지점 고도";
+        document.getElementById("modalElevVal").textContent = alignedY.toFixed(1) + "m (위험 저지대)";
+        document.getElementById("modalElevVal").style.color = "#ef4444";
+        document.getElementById("modalLabel3").textContent = "침수 당시 수위 / 수심";
+        document.getElementById("modalFloodVal").textContent = escFloodZ.toFixed(1) + "m (수심 " + waterDepth.toFixed(2) + "m)";
+        document.getElementById("modalLabel4").textContent = "실패 원인 물리 판정";
+        document.getElementById("modalModeVal").textContent =
+          vehiclePowertrain === "ev" ? "🌊 수심 >0.8m 부력 표류/BMS 차단" : "💨 수심 >0.38m 흡기 침수 시동꺼짐";
+      }
+      modalEl.style.display = "block";
+    }
+
     // Place Hero Car at GN_01 by default even in Orbit mode so it's visible on the 3D map
-    alignCarToTerrain(heroCar, nodesMap.GN_01.x, nodesMap.GN_01.z, 0.2, currentFloodPlaneZ);
+    alignCarToTerrain(heroCar, nodesMap.GN_01.x, nodesMap.GN_01.z, 0.2, currentFloodPlaneZ, false);
 
     let pulseT = 0;
     let lastFrameTime = performance.now();
@@ -1923,8 +2125,8 @@
       // Animate 8 AI Civilian Traffic Vehicles continuously across Gangnam roads
       npcCars.forEach((npc, idx) => {
         const pt = getPointOnNodePath(npc.path, npc.t, npc.laneOffset);
-        const { y, waterDepth } = alignCarToTerrain(npc.mesh, pt.x, pt.z, pt.yaw, currentFloodPlaneZ);
-        if (waterDepth > 0.45) {
+        const { y, waterDepth } = alignCarToTerrain(npc.mesh, pt.x, pt.z, pt.yaw, currentFloodPlaneZ, false);
+        if (waterDepth > 0.42) {
           // Stranded in flooded low basin (GN_02 / GN_03): hazard lights blink!
           npc.mesh.userData.tailMat.color.setHex((Math.floor(now * 0.008 + idx) % 2 === 0) ? 0xfacc15 : 0xef4444);
         } else {
@@ -1945,15 +2147,19 @@
       // Interactive Movie "2012" Vehicle Escape Simulation Loop
       if (escapeGameActive && !escFinished) {
         escElapsedSec += dt;
+        const isEv = (vehiclePowertrain === "ev");
 
-        // Rising Tsunami / Flash Flood Wave (15.2m -> 22.4m)
-        if (escFloodZ < 22.4) {
-          const riseRate = escControlMode === "trap_demo" ? 0.52 : 0.24;
-          escFloodZ = Math.min(22.4, escFloodZ + riseRate * dt);
+        // Real-Time Rising Flash Flood Wave (17.5m -> 24.5m):
+        // Rises +0.46m/sec so standing still at GN_01 (19.2m) submerges the car in ~3.7 seconds!
+        if (escFloodZ < 24.5) {
+          const riseRate = escControlMode === "trap_demo" ? 0.58 : (escControlMode === "manual" ? 0.46 : 0.30);
+          escFloodZ = Math.min(24.5, escFloodZ + riseRate * dt);
           currentFloodPlaneZ = escFloodZ;
           waterPlane.position.y = escFloodZ;
           document.getElementById("waterVal").textContent = escFloodZ.toFixed(1) + "m";
           document.getElementById("waterSlider").value = Math.min(22.0, escFloodZ).toFixed(1);
+          // Sync live 2D Mini-Radar with rising water & Hero car position
+          drawWgs84TacticalMap(currentRouteIds, escFloodZ);
         }
 
         // Occasional Movie "2012" Storm Lightning Flash
@@ -1965,6 +2171,11 @@
         const curTerrY = getTerrainElevation(heroPos.x, heroPos.z);
         const waterDepth = Math.max(0, escFloodZ - curTerrY);
 
+        // Powertrain-Specific Flood Thresholds:
+        // - ICE (내연기관): Stalls at 0.38m (air intake / exhaust hydro-lock)
+        // - EV (전기차 IP68): No intake! Drives through 0.38m~0.78m water! Fails only at >= 0.80m (buoyancy loss of tire traction + HV BMS cutoff)
+        const criticalDepth = isEv ? 0.80 : 0.38;
+
         // Turbo Boost decay
         if (turboTimer > 0) {
           turboTimer = Math.max(0, turboTimer - dt);
@@ -1972,19 +2183,40 @@
           heroCar.userData.haloMat.color.setHex(0xfacc15);
         } else {
           heroCar.userData.flameMat.opacity = 0.0;
-          heroCar.userData.haloMat.color.setHex(waterDepth > 0.35 ? 0xef4444 : 0x38bdf8);
+          heroCar.userData.haloMat.color.setHex(
+            waterDepth >= criticalDepth ? 0xef4444 : (isEv ? 0x06b6d4 : 0x38bdf8)
+          );
         }
 
-        // Hydrodynamic Drag & Engine Durability in Deep Floodwater (> 0.35m)
-        if (waterDepth > 0.35 && turboTimer <= 0) {
-          heroHealth = Math.max(0, heroHealth - waterDepth * 26.0 * dt);
-          if (heroHealth <= 5 && Math.random() < 0.06) playDisasterSound("stall");
+        // Durability & Submergence Physics:
+        if (waterDepth >= criticalDepth && turboTimer <= 0) {
+          // Critical submergence: rapid engine stall (ICE) or buoyancy/BMS cutoff (EV)
+          const drainRate = isEv ? 30.0 : 38.0;
+          heroHealth = Math.max(0, heroHealth - (waterDepth - criticalDepth + 0.35) * drainRate * dt);
+          if (Math.random() < 0.07) playDisasterSound("stall");
+        } else if (isEv && waterDepth >= 0.38 && waterDepth < 0.80) {
+          // EV wading through 0.38m ~ 0.78m water: motor stays alive! Only mild battery thermal load (-3.5%/s)
+          heroHealth = Math.max(25, heroHealth - 3.5 * dt);
+          document.getElementById("cbsBannerText").textContent =
+            "⚡ [EV IP68 수중 돌파 중! 수심 " + waterDepth.toFixed(2) + "m] 내연기관이면 시동이 꺼졌을 수심이지만 전기차는 구동력을 유지합니다! 고지대로 탈출하세요!";
+        } else if (!isEv && waterDepth >= 0.15 && waterDepth < 0.38) {
+          document.getElementById("cbsBannerText").textContent =
+            "⚠️ [강남역 노면 침수 시작! 수심 " + waterDepth.toFixed(2) + "m] 수심 0.38m 도달 시 내연기관 시동이 꺼집니다! 즉시 고지대로 이동하세요!";
         } else {
-          heroHealth = Math.min(100, heroHealth + 12.0 * dt);
+          heroHealth = Math.min(100, heroHealth + 10.0 * dt);
         }
 
         const boostMult = turboTimer > 0 ? 1.65 : 1.0;
-        const waterDrag = waterDepth > 0.40 && turboTimer <= 0 ? Math.max(0.08, 1.0 - waterDepth * 0.45) : 1.0;
+        let waterDrag = 1.0;
+        if (turboTimer <= 0) {
+          if (isEv) {
+            // EV retains 75~85% torque up to 0.78m, then loses tire traction due to buoyancy above 0.80m
+            waterDrag = waterDepth < 0.35 ? 1.0 : (waterDepth < 0.80 ? 0.78 : 0.06);
+          } else {
+            // ICE loses power rapidly above 0.38m intake depth
+            waterDrag = waterDepth < 0.25 ? 1.0 : (waterDepth < 0.38 ? 0.65 : 0.04);
+          }
+        }
         const maxMoveSpeed = 21.5 * boostMult * waterDrag;
 
         if (escControlMode === "autopilot") {
@@ -2006,23 +2238,21 @@
             nextWpIndex++;
           }
         } else if (escControlMode === "trap_demo") {
-          // Steer straight into Flooded Basin GN_02 (13.5m) to demonstrate submergence & engine stall
+          // Steer straight into Flooded Basin GN_02 (13.5m) to compare ICE vs EV submergence
           const trapNode = nodesMap.GN_02;
           const dx = trapNode.x - heroPos.x;
           const dz = trapNode.z - heroPos.z;
           const dist = Math.hypot(dx, dz);
-          if (dist > 2.2 && heroHealth > 5) {
+          if (dist > 2.2 && heroHealth > 4 && waterDrag > 0.1) {
             heroPos.yaw = Math.atan2(dx, dz);
-            heroPos.speed = maxMoveSpeed * 0.85;
+            heroPos.speed = maxMoveSpeed * 0.88;
             heroPos.x += Math.sin(heroPos.yaw) * heroPos.speed * dt;
             heroPos.z += Math.cos(heroPos.yaw) * heroPos.speed * dt;
           } else {
             heroPos.speed = 0;
-            document.getElementById("cbsBannerText").textContent =
-              "🚨 [차량 침수 시동꺼짐!] GN_02 지하차도(13.5m) 고립! 우측 하단 [⚡ 풀악셀 부스트(Space)] 또는 [🤖 AI 가이드 자율질주]로 탈출하세요!";
           }
         } else {
-          // Manual WASD / Arrow / D-Pad Driving
+          // Manual WASD / Arrow / D-Pad Driving (or Standing Still!)
           const turnSpeed = 2.1;
           if (keyState.left) heroPos.yaw += turnSpeed * dt;
           if (keyState.right) heroPos.yaw -= turnSpeed * dt;
@@ -2031,14 +2261,15 @@
           } else if (keyState.down) {
             heroPos.speed = -maxMoveSpeed * 0.55;
           } else {
-            heroPos.speed *= 0.90;
+            heroPos.speed *= 0.88;
+            if (Math.abs(heroPos.speed) < 0.2) heroPos.speed = 0;
           }
           heroPos.x = Math.max(-92, Math.min(92, heroPos.x + Math.sin(heroPos.yaw) * heroPos.speed * dt));
           heroPos.z = Math.max(-92, Math.min(92, heroPos.z + Math.cos(heroPos.yaw) * heroPos.speed * dt));
         }
 
         // Align Hero SUV on 3D Terrain
-        const aligned = alignCarToTerrain(heroCar, heroPos.x, heroPos.z, heroPos.yaw, escFloodZ);
+        const aligned = alignCarToTerrain(heroCar, heroPos.x, heroPos.z, heroPos.yaw, escFloodZ, isEv);
 
         // Check Checkpoint Gate clearance
         checkpointGates.forEach((g, idx) => {
@@ -2077,20 +2308,23 @@
         const kmh = Math.round(Math.abs(heroPos.speed) * 4.2);
         document.getElementById("escTimerBadge").textContent = "⏱️ " + escElapsedSec.toFixed(1) + "s";
         const modeEl = document.getElementById("escModeText");
-        if (aligned.waterDepth > 0.45 && turboTimer <= 0) {
-          modeEl.textContent = "🚨 침수 엔진정지 (0 km/h)";
+        if (aligned.waterDepth >= criticalDepth && turboTimer <= 0) {
+          modeEl.textContent = isEv ? "🚨 EV 부력표류/차단 (0 km/h)" : "🚨 ICE 흡기침수 정지 (0 km/h)";
           modeEl.style.color = "#ef4444";
+        } else if (isEv && aligned.waterDepth >= 0.38) {
+          modeEl.textContent = "⚡ EV IP68 방수구동 (" + kmh + " km/h)";
+          modeEl.style.color = "#22d3ee";
         } else if (turboTimer > 0) {
           modeEl.textContent = "⚡ TURBO BOOST (" + kmh + " km/h)";
           modeEl.style.color = "#facc15";
         } else {
-          modeEl.textContent = "🚗 HERO SUV (" + kmh + " km/h)";
-          modeEl.style.color = "#38bdf8";
+          modeEl.textContent = (isEv ? "⚡ EV SUV (" : "⛽ ICE SUV (") + kmh + " km/h)";
+          modeEl.style.color = isEv ? "#22d3ee" : "#38bdf8";
         }
 
         const elevEl = document.getElementById("escElevText");
         elevEl.textContent = aligned.y.toFixed(1) + "m / 수위 " + escFloodZ.toFixed(1) + "m";
-        elevEl.style.color = aligned.y > escFloodZ + 0.5 ? "#34d399" : "#ef4444";
+        elevEl.style.color = aligned.y > escFloodZ + 0.3 ? "#34d399" : "#ef4444";
 
         const healthEl = document.getElementById("escHealthText");
         const barEl = document.getElementById("escHealthBar");
@@ -2107,16 +2341,15 @@
         document.getElementById("escTargetText").textContent =
           nextId + " (" + nextNode.y + "m | " + remDist + "m)";
 
-        // Check Victory Arrival at GN_08 Yeoksam Middle School Shelter (41.2m)
+        // 1) Check ESCAPE FAILURE (Vehicle Submerged & Engine/BMS Dead -> Health <= 0)
+        if (heroHealth <= 0.5) {
+          showEscapeResultModal(false, aligned.y, aligned.waterDepth);
+        }
+
+        // 2) Check VICTORY ARRIVAL at GN_08 Yeoksam Middle School Shelter (41.2m)
         const distToShelter = Math.hypot(nodesMap.GN_08.x - heroPos.x, nodesMap.GN_08.z - heroPos.z);
-        if (distToShelter < 6.8) {
-          escFinished = true;
-          playDisasterSound("victory");
-          document.getElementById("modalTimeVal").textContent = escElapsedSec.toFixed(1) + "초 (골든타임 내)";
-          document.getElementById("modalFloodVal").textContent = escFloodZ.toFixed(1) + "m (저지대 침수)";
-          document.getElementById("modalModeVal").textContent =
-            usedTurboCount > 0 ? "⚡ 터보 부스트 & AI 능선 돌파" : "🚗 AI 안전 능선 무정차 주파";
-          document.getElementById("escape-result-modal").style.display = "block";
+        if (distToShelter < 6.8 && !escFinished) {
+          showEscapeResultModal(true, aligned.y, aligned.waterDepth);
         }
       } else if (autoRotate && !isDragging && camMode !== "escape") {
         camTheta += 0.0020;
