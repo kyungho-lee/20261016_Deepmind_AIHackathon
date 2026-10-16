@@ -1,6 +1,7 @@
 # GeoRescue 3D — Multi-Agent Flood Evacuation Digital Twin (Seoul Gangnam Basin)
 
-**Repository**: [`https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon.git`](https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon.git)
+**Repository**: [`https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon.git`](https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon.git)  
+**Live Google Cloud Run Demo**: [`https://georescue3d-464836279033.asia-northeast3.run.app/`](https://georescue3d-464836279033.asia-northeast3.run.app/) (Project: `h2gdm-hack26icn-2618`, Region: `asia-northeast3`)
 
 GeoRescue 3D is an autonomous multi-agent 3D flood evacuation routing and verification system built for the **Seoul Gangnam Station Basin**. It combines a **Hybrid Multi-Agent Competitive Tournament** (`Team Alpha`, `Team Beta`, `Team Gamma`), an **Autonomous Sandbox Verification Loop** (`antigravity-preview-09-2026`), and **Argon Chief Jury Selection** (`gemini-4-argon`, `thinking_level="high"`) with a real-time **FastAPI + NetworkX A\* + Three.js 3D WebGL + Google Maps** digital twin.
 
