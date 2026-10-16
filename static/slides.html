@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoRescue 3D — Official Hackathon Pitch Deck</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #050814;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
+    .deck-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 54px 76px 80px 76px;
+      background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.14), transparent 45%),
+                  radial-gradient(circle at 15% 85%, rgba(16, 185, 129, 0.12), transparent 45%),
+                  #050814;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .slide.active { display: flex; }
+    .slide-header {
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .kicker {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #34d399;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 46px;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.15;
+    }
+    h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .slide-num {
+      font-size: 14px;
+      font-family: monospace;
+      color: #94a3b8;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px;
+      flex: 1;
+      align-items: stretch;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .card.green { border-color: rgba(16, 185, 129, 0.55); background: rgba(6, 78, 59, 0.18); }
+    .card.red { border-color: rgba(239, 68, 68, 0.55); background: rgba(127, 29, 29, 0.18); }
+    .card h3 {
+      font-size: 21px;
+      color: #38bdf8;
+      margin-bottom: 12px;
+    }
+    .card.green h3 { color: #34d399; }
+    .card.red h3 { color: #f87171; }
+    .card p, .card li {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .card ul { padding-left: 20px; }
+    .card li { margin-bottom: 8px; }
+    .pill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .pill {
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid #38bdf8;
+      color: #7dd3fc;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+    .pill.green {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #6ee7b7;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      margin-top: 8px;
+    }
+    th, td {
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 12px 16px;
+      text-align: left;
+    }
+    th {
+      background: rgba(30, 41, 59, 0.9);
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    td { background: rgba(15, 23, 42, 0.7); color: #e2e8f0; }
+    .code-box {
+      background: #091020;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: monospace;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: #a7f3d0;
+      white-space: pre-wrap;
+    }
+    .big-stat {
+      font-size: 40px;
+      font-weight: 800;
+      color: #34d399;
+      margin: 6px 0;
+    }
+    .nav-bar {
+      position: fixed;
+      bottom: 18px;
+      left: 76px;
+      right: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .nav-btns { display: flex; gap: 10px; }
+    .btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #f8fafc;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #38bdf8; color: #050814; }
+    .btn.primary { background: #10b981; border-color: #10b981; color: #050814; }
+    @media print {
+      body { overflow: visible; }
+      .slide { display: flex !important; page-break-after: always; height: 100vh; }
+      .nav-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-container">
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide active">
+      <div>
+        <div class="kicker">Google DeepMind AI Hackathon • Track 2 (Hard Tech) &amp; Track 3 (Social Good)</div>
+        <h1 style="font-size:56px; margin-top:14px;">GeoRescue 3D</h1>
+        <h2 style="margin-top:8px; color:#34d399;">Real-Time Spatial Disaster Evacuation Simulator &amp; AI Verification Engine</h2>
+        <div class="pill-row" style="margin-top:22px;">
+          <span class="pill">Gemini 4 Argon (1M Context, thinking_level="high")</span>
+          <span class="pill green">Antigravity Sandbox Verification (antigravity-preview-09-2026)</span>
+          <span class="pill">Three.js 3D WebGL Digital Twin</span>
+          <span class="pill">FastAPI + NetworkX A* on Google Cloud Run</span>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:32px; max-height:320px;">
+        <div class="card green">
+          <h3>Live Google Cloud Run Production</h3>
+          <p style="font-size:19px; font-weight:700; color:#6ee7b7; margin-bottom:10px;">
+            https://georescue3d-464836279033.asia-northeast3.run.app/
+          </p>
+          <p>Containerized FastAPI + Three.js 3D WebGL Digital Twin of the Seoul Gangnam Station Basin with real-time 1.04ms NetworkX A* verification.</p>
+        </div>
+        <div class="card">
+          <h3>Public GitHub Repository</h3>
+          <p style="font-size:18px; font-weight:700; color:#7dd3fc; margin-bottom:10px;">
+            https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon
+          </p>
+          <p>Includes 3-Team Competitive Tournament pipeline, Autonomous Sandbox Verifier, V-World/OSM Open GIS datasets, and HITL dispatch console.</p>
+        </div>
+      </div>
+      <div class="slide-num">Slide 1 / 7 — Use Left / Right Arrow Keys or Click Buttons Below (Press Ctrl+P to Export PDF)</div>
+    </div>
+
+    <!-- SLIDE 2: PROBLEM -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">1. Problem &amp; Impact</div>
+          <h2>Why 2D Flat Navigation &amp; Unverified LLMs Fail in Flash Floods</h2>
+        </div>
+        <div class="slide-num">02 / 07</div>
+      </div>
+      <div class="grid-3">
+        <div class="card red">
+          <h3>1. Bowl-Shaped Gangnam Basin</h3>
+          <p>Seoul's Gangnam Station intersection forms a steep topographical bowl (central underpass at <strong>13.5m</strong> surrounded by <strong>38.5m–41.2m</strong> hills).</p>
+          <p style="margin-top:12px;">During cloudbursts (<code>water_level = 2.0m</code>, flood plane <code>z = 18.5m</code>), stormwater rapidly submerges the central basin.</p>
+        </div>
+        <div class="card red">
+          <h3>2. Deadly 2D Shortest Paths</h3>
+          <p>Standard 2D map routers optimize strictly for horizontal distance (<code>850m</code>):<br/>
+          <code>GN_01 &rarr; GN_02 &rarr; GN_06 &rarr; GN_08</code></p>
+          <p style="margin-top:12px;">This leads citizens directly into the submerged <strong>Gangnam Underpass (GN_02, z = 13.5m, water = 0.45m)</strong>.</p>
+        </div>
+        <div class="card green">
+          <h3>3. The GeoRescue 3D Solution</h3>
+          <p>Combines <strong>Gemini 4 Argon (1M Context)</strong> with an isolated <strong>Python NetworkX A* Sandbox Verifier</strong>.</p>
+          <p style="margin-top:12px;">Guarantees every evacuation node satisfies <code>z_elevation &gt; 18.5m</code> and <code>water_level_m &le; 0.15m</code> before rendering on a 3D WebGL Digital Twin.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: ARCHITECTURE -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">2. Multi-Agent System Architecture</div>
+          <h2>Gemini 4 Argon (1M) + Antigravity Autonomous Verification</h2>
+        </div>
+        <div class="slide-num">03 / 07</div>
+      </div>
+      <div>
+        <div class="code-box" style="margin-bottom:18px;">[1. GIS Data Pipeline (make_data.py)]  V-World 3D DEM (gangnam_3d_grid.csv) + OSM Graph (gangnam_graphify.json)
+        |
+        v
+[2. Lead Orchestrator &amp; Chief Jury]    gemini-4-argon (1M Context, thinking_level="high", background=True)
+        |                              &bull; Orchestrates 3-Team Tournament (Alpha / Beta / Gamma) &amp; 100-pt Rubric
+        v
+[3. Autonomous Sandbox Verifier]       antigravity-preview-09-2026 (Isolated Linux Python NetworkX A* Sandbox)
+        |                              &bull; Iteration #1: Rejects GN_02 (13.5m &le; 18.5m) -> Iteration #2: Verifies High Ridge
+        v
+[4. Cloud Run Production WebApp]       FastAPI (app.py) + Three.js 3D WebGL + Google Maps + HITL Officer Approval</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Agent Role</th>
+              <th>Model / Agent ID</th>
+              <th>Deliverable &amp; Responsibility</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Argon Chief Jury &amp; Orchestrator</strong></td>
+              <td><code>gemini-4-argon</code> (<code>high</code>, 1M)</td>
+              <td>Multi-agent tournament orchestration, 3D physics code synthesis, 100-pt rubric evaluation</td>
+            </tr>
+            <tr>
+              <td><strong>2. Autonomous Verification Agent</strong></td>
+              <td><code>antigravity-preview-09-2026</code></td>
+              <td>Executes Python <code>NetworkX</code> A* verification &amp; self-correction loop (<code>[SUCCESS] Verified</code>)</td>
+            </tr>
+            <tr>
+              <td><strong>3. Fast Worker &amp; Safety Guardrail</strong></td>
+              <td><code>gemini-3.8-flash</code> + <code>3.5-flash-lite</code></td>
+              <td>Sub-ms CSV/JSON validation, V-World/OSM ODbL license compliance &amp; HITL officer gate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: SELF-CORRECTION LOOP -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">3. Autonomous Sandbox Self-Correction</div>
+          <h2>How Antigravity Detects &amp; Bypasses Submerged Traps</h2>
+        </div>
+        <div class="slide-num">04 / 07</div>
+      </div>
+      <div class="grid-2">
+        <div class="card red">
+          <h3>Iteration #1 — Rejected by Sandbox Verifier</h3>
+          <ul>
+            <li><strong>Candidate Route</strong>: <code>GN_01 (19.2m) &rarr; GN_02 (13.5m) &rarr; GN_06 (34.0m) &rarr; GN_08 (41.2m)</code></li>
+            <li><strong>Horizontal Distance</strong>: <code>850.0 m</code> (Naive shortest path)</li>
+            <li><strong>Sandbox Audit Result</strong>: <code>[FAIL / 4 CRITICAL VIOLATIONS]</code></li>
+            <li><strong>Violation #1</strong>: Node <code>GN_02</code> elevation <code>13.50m &le; 18.50m</code> flood plane</li>
+            <li><strong>Violation #2</strong>: Surface water <code>0.45m &gt; 0.15m</code> safe pedestrian limit</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Iteration #2 — Autonomous Self-Correction</h3>
+          <ul>
+            <li><strong>Argon Self-Correction</strong>: Blacklists <code>GN_02</code>, raises <code>min_safe_z=16.0m</code>, applies elevation bonus (<code>2.0</code>)</li>
+            <li><strong>Verified Safe Route</strong>: <code>GN_01 (19.2m) &rarr; GN_04 (22.8m) &rarr; GN_05 (38.5m) &rarr; GN_06 (34.0m) &rarr; GN_08 Shelter (41.2m)</code></li>
+            <li><strong>Min Elevation / Max Water</strong>: <strong><code>19.20m (&gt; 18.5m)</code></strong> / <strong><code>0.12m (&le; 0.15m)</code></strong></li>
+            <li><strong>Sandbox Output</strong>: <code>[SUCCESS] Verified by Python A* Algorithm</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 3D DIGITAL TWIN INNOVATION -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">4. Key Technical Innovations</div>
+          <h2>Terrain-Locked 3D WebGL Digital Twin &amp; HITL Console</h2>
+        </div>
+        <div class="slide-num">05 / 07</div>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>0.00m Elevation Sync</h3>
+          <div class="big-stat">64 &times; 64 DEM</div>
+          <p>Unified 12-control-point IDW terrain interpolation across Python backend and Three.js frontend. Every road and green 3D evacuation tube hugs the exact slope with <strong>2.5m contour lines</strong>.</p>
+        </div>
+        <div class="card">
+          <h3>Real-Time Flood Slider</h3>
+          <div class="big-stat">1.04 ms</div>
+          <p>Dragging the flood plane slider (<code>14.0m – 22.0m</code>) dynamically raises the 3D water mesh, updates the <strong>Longitudinal Elevation Profile Chart</strong>, and recalculates A* paths in <code>1.04ms</code>.</p>
+        </div>
+        <div class="card green">
+          <h3>Google Maps + HITL Gate</h3>
+          <div class="big-stat">100% Safe</div>
+          <p>Synchronized <strong>WGS84 Coordinate Map</strong>, one-click <strong>Google Maps Walking Directions</strong>, Open GIS attribution (V-World &amp; OSM ODbL), and <strong>Control Center Officer Approval</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: TOURNAMENT & METRICS -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">5. Quantitative Verification &amp; Jury Scoreboard</div>
+          <h2>3-Team Competitive Tournament &amp; Benchmark Results</h2>
+        </div>
+        <div class="slide-num">06 / 07</div>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Verification Dimension</th>
+              <th>Target Invariant / Threshold</th>
+              <th>Team Alpha (A*)</th>
+              <th>Team Beta (3D UI)</th>
+              <th>Team Gamma (Adopted Winner)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Min Route Elevation (<code>z_elevation</code>)</strong></td>
+              <td><code>&gt; 18.50 m</code></td>
+              <td style="color:#f87171;">13.50 m (FAIL)</td>
+              <td style="color:#f87171;">17.20 m (FAIL)</td>
+              <td style="color:#34d399; font-weight:700;">19.20 m &rarr; 41.20 m (PASS)</td>
+            </tr>
+            <tr>
+              <td><strong>Max Surface Water Depth</strong></td>
+              <td><code>&le; 0.15 m</code></td>
+              <td style="color:#f87171;">0.45 m (FAIL)</td>
+              <td style="color:#f87171;">0.28 m (FAIL)</td>
+              <td style="color:#34d399; font-weight:700;">0.12 m (PASS)</td>
+            </tr>
+            <tr>
+              <td><strong>Golden Time Evacuation ETA</strong></td>
+              <td><code>&le; 1,800 sec (30 min)</code></td>
+              <td>1,598.4 sec</td>
+              <td>1,412.0 sec</td>
+              <td style="color:#34d399; font-weight:700;">1,524.6 sec (25.4 min — PASS)</td>
+            </tr>
+            <tr>
+              <td><strong>Argon Chief Jury Total Score</strong></td>
+              <td><code>100-Point Rubric</code></td>
+              <td>47.0 / 100</td>
+              <td>44.0 / 100</td>
+              <td style="color:#34d399; font-weight:800;">97.6 / 100 (ADOPTED)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: CONCLUSION & LIVE LINKS -->
+    <div class="slide">
+      <div class="slide-header">
+        <div>
+          <div class="kicker">6. Live Deployment &amp; Conclusion</div>
+          <h2>Ready for Real-World Urban Disaster Response</h2>
+        </div>
+        <div class="slide-num">07 / 07</div>
+      </div>
+      <div class="grid-2">
+        <div class="card green">
+          <h3>Try the Live 3D Simulation Now</h3>
+          <p style="margin-bottom:14px;">Deployed on <strong>Google Cloud Run</strong> (<code>asia-northeast3</code>, Seoul):</p>
+          <p style="font-size:20px; font-weight:800; color:#34d399; word-break:break-all; margin-bottom:18px;">
+            https://georescue3d-464836279033.asia-northeast3.run.app/
+          </p>
+          <a class="btn primary" href="https://georescue3d-464836279033.asia-northeast3.run.app/" target="_blank">
+            Launch Live 3D WebGL Digital Twin &nearr;
+          </a>
+        </div>
+        <div class="card">
+          <h3>Complete Open-Source Repository</h3>
+          <p style="margin-bottom:14px;">All multi-agent pipelines, datasets, and verification logs:</p>
+          <p style="font-size:18px; font-weight:700; color:#38bdf8; word-break:break-all; margin-bottom:18px;">
+            https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon
+          </p>
+          <a class="btn" href="https://github.com/kyungho-lee/20261016_Deepmind_AIHackathon" target="_blank">
+            Open GitHub Repository &nearr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <div style="font-size:13px; color:#94a3b8;">
+      <strong>GeoRescue 3D</strong> • Gemini 4 Argon (1M) + Antigravity Autonomous Verification
+    </div>
+    <div class="nav-btns">
+      <button class="btn" onclick="prevSlide()">&larr; Prev</button>
+      <button class="btn" onclick="nextSlide()">Next &rarr;</button>
+      <button class="btn" onclick="window.print()">Export PDF (Ctrl+P)</button>
+      <a class="btn primary" href="/">Back to 3D App</a>
+    </div>
+  </div>
+
+  <script>
+    let idx = 0;
+    const slides = document.querySelectorAll(".slide");
+    function showSlide(n) {
+      slides[idx].classList.remove("active");
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add("active");
+    }
+    function nextSlide() { showSlide(idx + 1); }
+    function prevSlide() { showSlide(idx - 1); }
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") nextSlide();
+      if (e.key === "ArrowLeft" || e.key === "PageUp") prevSlide();
+    });
+  </script>
+</body>
+</html>
