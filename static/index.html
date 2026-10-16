@@ -200,10 +200,257 @@
       z-index: 10;
     }
     .license-tag { color: #94a3b8; font-size: 10.5px; white-space: nowrap; }
+
+    /* Interactive Disaster Escape Gamification HUD */
+    .btn-escape-launch {
+      margin-top: 8px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #f97316;
+      background: linear-gradient(135deg, #dc2626, #ea580c);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(234, 88, 12, 0.45);
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+    .btn-escape-launch:hover {
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      transform: translateY(-1px);
+    }
+    #escape-hud {
+      display: none;
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 640px;
+      max-width: calc(100vw - 820px);
+      min-width: 440px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1.5px solid rgba(249, 115, 22, 0.75);
+      border-radius: 14px;
+      padding: 11px 15px;
+      z-index: 25;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(12px);
+    }
+    @keyframes pulseAlert {
+      0%, 100% { background: rgba(220, 38, 38, 0.28); border-color: #ef4444; }
+      50% { background: rgba(234, 88, 12, 0.48); border-color: #facc15; }
+    }
+    .cbs-banner {
+      background: rgba(220, 38, 38, 0.28);
+      border: 1px solid #ef4444;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #fef08a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: pulseAlert 1.6s infinite;
+      margin-bottom: 8px;
+    }
+    .esc-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+    .esc-card {
+      background: rgba(30, 41, 59, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 8px;
+      padding: 6px 8px;
+    }
+    .esc-label {
+      font-size: 9.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .esc-val {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-top: 2px;
+    }
+    .health-track {
+      width: 100%;
+      height: 6px;
+      background: #1e293b;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .health-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      transition: width 0.15s, background 0.2s;
+    }
+    .esc-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .esc-btn {
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .esc-btn:hover {
+      background: rgba(56, 189, 248, 0.25);
+      color: #fff;
+    }
+    .esc-btn.primary {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #6ee7b7;
+    }
+    .esc-btn.danger {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: #ef4444;
+      color: #fca5a5;
+    }
+    .esc-btn.bailout {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-color: #fde047;
+      color: #0f172a;
+      font-weight: 900;
+    }
+    .dpad-group {
+      display: inline-flex;
+      gap: 3px;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 2px 5px;
+      border-radius: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .dpad-btn {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 4px;
+      width: 24px;
+      height: 22px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      user-select: none;
+    }
+    .dpad-btn:active {
+      background: #0284c7;
+      color: #fff;
+    }
+    #escape-result-modal {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 440px;
+      background: rgba(15, 23, 42, 0.97);
+      border: 2px solid #10b981;
+      border-radius: 16px;
+      padding: 18px 20px;
+      z-index: 40;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <div id="canvas-container"></div>
+
+  <!-- Top-Center Interactive Disaster Escape Gamification HUD (Movie 2012 Vehicle Escape Motif) -->
+  <div id="escape-hud">
+    <div class="cbs-banner" id="cbsBanner">
+      <span id="cbsBannerText">🚨 [영화 2012 모드: 긴급재난발령] 강남역 대홍수 해일 상승 중! 차량으로 AI 녹색 능선을 따라 대피소(41.2m)로 질주하세요!</span>
+      <span id="escTimerBadge" style="background:#0f172a;color:#38bdf8;padding:2px 7px;border-radius:5px;font-family:monospace;white-space:nowrap;">⏱️ 00:00.0</span>
+    </div>
+
+    <div class="esc-telemetry-grid">
+      <div class="esc-card">
+        <div class="esc-label">탈출 차량 상태 / 주행속도</div>
+        <div class="esc-val" id="escModeText" style="color:#38bdf8;">🚗 HERO SUV (84 km/h)</div>
+      </div>
+      <div class="esc-card">
+        <div class="esc-label">차량 고도 vs 추격 홍수수위</div>
+        <div class="esc-val" id="escElevText" style="color:#34d399;">19.2m / 수위 15.5m</div>
+      </div>
+      <div class="esc-card">
+        <div class="esc-label">차량 엔진 내구도 &amp; 수심</div>
+        <div class="esc-val" id="escHealthText" style="color:#10b981;">100% 정상 (수심 0.00m)</div>
+        <div class="health-track"><div class="health-fill" id="escHealthBar"></div></div>
+      </div>
+      <div class="esc-card">
+        <div class="esc-label">다음 AI 가이드 체크포인트</div>
+        <div class="esc-val" id="escTargetText" style="color:#facc15;">GN_04 능선 (22.8m)</div>
+      </div>
+    </div>
+
+    <div class="esc-actions-row">
+      <div class="dpad-group" title="키보드 WASD / 방향키 또는 마우스 클릭으로 차량 조종">
+        <span style="font-size:10px;color:#94a3b8;margin-right:2px;">운전(WASD):</span>
+        <button class="dpad-btn" onmousedown="setPadKey('left',true)" onmouseup="setPadKey('left',false)" onmouseleave="setPadKey('left',false)">◀</button>
+        <button class="dpad-btn" onmousedown="setPadKey('up',true)" onmouseup="setPadKey('up',false)" onmouseleave="setPadKey('up',false)">▲</button>
+        <button class="dpad-btn" onmousedown="setPadKey('down',true)" onmouseup="setPadKey('down',false)" onmouseleave="setPadKey('down',false)">▼</button>
+        <button class="dpad-btn" onmousedown="setPadKey('right',true)" onmouseup="setPadKey('right',false)" onmouseleave="setPadKey('right',false)">▶</button>
+      </div>
+      <button class="esc-btn primary" onclick="triggerAutoPilotSafeRoute()">🤖 AI 가이드 자율질주</button>
+      <button class="esc-btn danger" onclick="triggerFloodedBasinTrapDemo()">🌊 저지대(GN_02) 침수고립 체험</button>
+      <button class="esc-btn bailout" id="bailoutBtn" onclick="triggerVehicleTurboBoost()">⚡ 풀악셀 부스트(Space)</button>
+      <button class="esc-btn" onclick="resetEscapeSimulation()">🔄 리셋</button>
+      <button class="esc-btn" onclick="exitEscapeTrainingMode()">✖ 관제복귀</button>
+    </div>
+  </div>
+
+  <!-- Mission Complete / Training Debriefing Modal -->
+  <div id="escape-result-modal">
+    <div style="font-size:11px;font-weight:800;color:#38bdf8;letter-spacing:1px;text-transform:uppercase;">GeoRescue 3D — Disaster Drill Debriefing</div>
+    <h2 id="modalRankTitle" style="font-size:18px;font-weight:900;color:#34d399;margin:6px 0;">🏆 S-RANK: 골든타임 완벽 탈출 성공!</h2>
+    <p id="modalSummaryText" style="font-size:12px;color:#e2e8f0;line-height:1.5;margin-bottom:12px;">
+      실시간 차오르는 홍수 수위를 피해 AI 검증 고지대 능선 경로(GN_01 &rarr; GN_04 &rarr; GN_05 &rarr; GN_06 &rarr; GN_08)를 따라 안전지대(41.2m)에 무사히 도착했습니다!
+    </p>
+    <div class="metric-grid" style="text-align:left;margin-bottom:12px;">
+      <div class="metric-card">
+        <div class="metric-label">탈출 소요 시간</div>
+        <div class="metric-value" id="modalTimeVal" style="color:#38bdf8;">18.4초</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">최종 도달 고도</div>
+        <div class="metric-value" style="color:#34d399;">41.2m (GN_08 대피소)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">도착 시점 강남역 수위</div>
+        <div class="metric-value" id="modalFloodVal" style="color:#f87171;">19.1m (저지대 완파)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">탈출 방식</div>
+        <div class="metric-value" id="modalModeVal" style="color:#facc15;">🚗 차량 무정차 주파</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;">
+      <button class="esc-btn primary" style="padding:8px 14px;font-size:12px;" onclick="resetEscapeSimulation()">🔄 다시 훈련하기</button>
+      <button class="esc-btn danger" style="padding:8px 14px;font-size:12px;" onclick="triggerFloodedBasinTrapDemo()">⚠️ 침수구간(GN_02) 시동꺼짐 체험</button>
+      <button class="esc-btn" style="padding:8px 14px;font-size:12px;" onclick="exitEscapeTrainingMode()">✖ 관제 화면으로</button>
+    </div>
+  </div>
 
   <!-- Left Panel: Main 3D Map Controls, A* Route Telemetry & HITL Approval -->
   <div id="hud-panel">
@@ -212,9 +459,10 @@
     <div class="subtitle">Main 3D Digital Twin Map (`37.492N–37.501N, 127.024E–127.037E`)</div>
 
     <div class="cam-toolbar">
-      <button class="cam-btn active" id="camOrbit" onclick="setCameraMode('orbit')">3D Orbit View</button>
-      <button class="cam-btn" id="camTop" onclick="setCameraMode('top')">3D Top-Down Map</button>
+      <button class="cam-btn active" id="camOrbit" onclick="setCameraMode('orbit')">3D Orbit</button>
+      <button class="cam-btn" id="camTop" onclick="setCameraMode('top')">Top-Down</button>
       <button class="cam-btn" id="camRoute" onclick="setCameraMode('route')">Route Focus</button>
+      <button class="cam-btn" id="camEscape" onclick="startEscapeTrainingMode()" style="border-color:#f97316;color:#fdba74;">🎮 탈출훈련</button>
     </div>
 
     <div class="metric-grid">
@@ -263,6 +511,10 @@
       <div class="jury-row"><span>Team Alpha (NetworkX A* Haversine)</span><span>47.0 / 100 (Submerged)</span></div>
       <div class="jury-row"><span>Team Beta (Three.js 3D WebGL UI)</span><span>44.0 / 100 (Submerged)</span></div>
     </div>
+
+    <button class="btn-escape-launch" id="launchEscapeBtn" onclick="startEscapeTrainingMode()">
+      🚨 긴급재난신호 발령 &amp; 3D 차량 탈출 훈련 시작 (Game Mode)
+    </button>
 
     <button class="btn-hitl" id="approveBtn" onclick="approveDispatch()">
       &#9989; Approve &amp; Broadcast Emergency Route (HITL Officer)
@@ -518,37 +770,170 @@
     );
     scene.add(wireMesh);
 
-    // 3. 3D Urban Buildings Standing on Exact Terrain Elevations (Placed Outside Road Corridors)
+    // 3. Google 3D Tiles-Inspired Gangnam Urban Landmarks & Skyline (Standing on Exact DEM Elevations)
+    function createBuildingFacadeTexture(style) {
+      const c = document.createElement("canvas");
+      c.width = 128;
+      c.height = 256;
+      const ctx = c.getContext("2d");
+
+      if (style === "glass_blue") {
+        // Samsung Town / Teheran-ro Curtain-Wall Skyscraper
+        const grad = ctx.createLinearGradient(0, 0, 0, 256);
+        grad.addColorStop(0, "#0c2d48");
+        grad.addColorStop(1, "#071626");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 128, 256);
+      } else if (style === "kyobo_brick") {
+        // Kyobo Tower Iconic Red-Amber Architectural Mass
+        ctx.fillStyle = "#3b1d1a";
+        ctx.fillRect(0, 0, 128, 256);
+      } else if (style === "shelter_green") {
+        // Yeoksam Middle School Emergency Shelter Complex
+        ctx.fillStyle = "#0f2926";
+        ctx.fillRect(0, 0, 128, 256);
+      } else {
+        // Standard Gangnam Mid-Rise Commercial / Residential Block
+        ctx.fillStyle = "#172133";
+        ctx.fillRect(0, 0, 128, 256);
+      }
+
+      // Illuminated office / apartment window grid
+      const cols = 8;
+      const rows = 20;
+      const padX = 3, padY = 4;
+      const winW = (128 / cols) - padX * 2;
+      const winH = (256 / rows) - padY * 2;
+
+      for (let r = 1; r < rows - 1; r++) {
+        // Floor slab horizontal Mullion
+        ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+        ctx.fillRect(0, r * (256 / rows) - 1, 128, 2);
+        for (let col = 0; col < cols; col++) {
+          const seed = (r * 31 + col * 17) % 100;
+          if (seed < 68) {
+            if (style === "glass_blue") {
+              ctx.fillStyle = seed < 22 ? "#bae6fd" : (seed < 48 ? "#38bdf8" : "#1e3a5f");
+            } else if (style === "kyobo_brick") {
+              ctx.fillStyle = seed < 35 ? "#fde68a" : "#b45309";
+            } else if (style === "shelter_green") {
+              ctx.fillStyle = seed < 50 ? "#6ee7b7" : "#10b981";
+            } else {
+              ctx.fillStyle = seed < 25 ? "#fef08a" : (seed < 52 ? "#7dd3fc" : "#334155");
+            }
+            ctx.fillRect(col * (128 / cols) + padX, r * (256 / rows) + padY, winW, winH);
+          }
+        }
+      }
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      return tex;
+    }
+
+    const texGlassBlue = createBuildingFacadeTexture("glass_blue");
+    const texKyoboBrick = createBuildingFacadeTexture("kyobo_brick");
+    const texShelterGreen = createBuildingFacadeTexture("shelter_green");
+    const texUrbanMid = createBuildingFacadeTexture("urban_mid");
+
     const buildingSpecs = [
-      { x: -64, z: 12, w: 8, d: 8, h: 14 }, { x: -62, z: -10, w: 9, d: 8, h: 15 },
-      { x: -16, z: 4, w: 9, d: 9, h: 12 }, { x: -5, z: 46, w: 10, d: 9, h: 11 },
-      { x: -55, z: -42, w: 9, d: 9, h: 14 }, { x: -18, z: -42, w: 10, d: 8, h: 16 },
-      { x: 18, z: -34, w: 11, d: 9, h: 18 }, { x: 42, z: -20, w: 10, d: 9, h: 17 },
-      { x: 22, z: 26, w: 10, d: 9, h: 14 }, { x: 52, z: -12, w: 11, d: 9, h: 18 },
-      { x: 52, z: 32, w: 10, d: 9, h: 15 }, { x: 82, z: 2, w: 11, d: 10, h: 16 }
+      // Samsung Town Seocho Complex (SW of Gangnam Stn GN_01: 3 High-Rise Curtain-Wall Towers)
+      { x: -64, z: 16, w: 10, d: 9, h: 31, style: "glass_blue", crown: 0x38bdf8, helipad: true },
+      { x: -66, z: 30, w: 11, d: 10, h: 35, style: "glass_blue", crown: 0x38bdf8, helipad: true },
+      { x: -53, z: 14, w: 9, d: 8, h: 25, style: "glass_blue", crown: 0x38bdf8 },
+      // GT Tower East & Gangnam-daero West Canyon
+      { x: -34, z: 12, w: 8.5, d: 8.5, h: 29, style: "glass_blue", crown: 0x7dd3fc },
+      { x: -58, z: -6, w: 9, d: 9, h: 22, style: "urban_mid" },
+      { x: -60, z: -22, w: 10, d: 8, h: 24, style: "glass_blue" },
+      // Kyobo Tower Twin Landmark (NW Gangnam-daero Sinnonhyeon Corridor near GN_04)
+      { x: -52, z: -38, w: 9, d: 7, h: 28, style: "kyobo_brick", crown: 0xf59e0b, helipad: true },
+      { x: -41, z: -38, w: 9, d: 7, h: 28, style: "kyobo_brick", crown: 0xf59e0b },
+      // Teheran-ro Skyscraper Corridor (Flanking GN_01 -> GN_02 -> GN_06)
+      { x: -26, z: 42, w: 10, d: 9, h: 26, style: "glass_blue", crown: 0x38bdf8 },
+      { x: -12, z: 45, w: 11, d: 9, h: 30, style: "glass_blue", crown: 0x38bdf8, helipad: true },
+      { x: 4, z: 40, w: 10, d: 9, h: 27, style: "glass_blue" },
+      { x: -22, z: 16, w: 8.5, d: 8, h: 23, style: "urban_mid" },
+      { x: -4, z: 15, w: 9.5, d: 8.5, h: 26, style: "glass_blue" },
+      { x: 14, z: 16, w: 10, d: 9, h: 29, style: "glass_blue", crown: 0x38bdf8 },
+      // Gangnam Finance Center (GFC) & Yeoksam Teheran-ro Towers (Near GN_06)
+      { x: 24, z: 24, w: 12, d: 11, h: 36, style: "glass_blue", crown: 0x38bdf8, helipad: true },
+      { x: 40, z: 22, w: 11, d: 9, h: 30, style: "glass_blue", crown: 0x38bdf8 },
+      { x: 52, z: 26, w: 10, d: 9, h: 24, style: "urban_mid" },
+      { x: 48, z: -12, w: 10, d: 9, h: 25, style: "glass_blue" },
+      { x: 32, z: -16, w: 9, d: 8, h: 21, style: "urban_mid" },
+      // Kukkiwon Ridge & Upper Yeoksam Hillside Blocks (Around GN_04 -> GN_05)
+      { x: -20, z: -38, w: 10, d: 8, h: 17, style: "urban_mid" },
+      { x: -16, z: -10, w: 8, d: 8, h: 16, style: "urban_mid" },
+      { x: 19, z: -32, w: 10, d: 9, h: 18, style: "urban_mid" },
+      { x: -2, z: -36, w: 11, d: 9, h: 15, style: "urban_mid" },
+      // Seocho Low Corridor & Southern Urban Blocks (Around GN_03 & GN_07)
+      { x: -38, z: 54, w: 9, d: 8, h: 19, style: "urban_mid" },
+      { x: -72, z: 52, w: 10, d: 9, h: 20, style: "urban_mid" },
+      { x: -82, z: 76, w: 12, d: 9, h: 14, style: "shelter_green", crown: 0x10b981 },
+      { x: -24, z: 68, w: 10, d: 9, h: 18, style: "urban_mid" },
+      { x: 18, z: 58, w: 11, d: 9, h: 20, style: "urban_mid" },
+      { x: 44, z: 52, w: 10, d: 9, h: 19, style: "urban_mid" },
+      // Yeoksam Middle School Emergency Shelter Complex (GN_08 41.2m High Summit)
+      { x: 78, z: 12, w: 13, d: 10, h: 15, style: "shelter_green", crown: 0x10b981, helipad: true },
+      { x: 74, z: -2, w: 10, d: 8, h: 12, style: "shelter_green", crown: 0x10b981 },
+      { x: 74, z: 26, w: 10, d: 8, h: 12, style: "shelter_green", crown: 0x10b981 }
     ];
+
     buildingSpecs.forEach(b => {
       const baseZ = getTerrainElevation(b.x, b.z);
       const bGeo = new THREE.BoxGeometry(b.w, b.h, b.d);
+      const facadeTex = b.style === "glass_blue" ? texGlassBlue
+        : (b.style === "kyobo_brick" ? texKyoboBrick
+        : (b.style === "shelter_green" ? texShelterGreen : texUrbanMid));
+
       const bMat = new THREE.MeshStandardMaterial({
-        color: 0x1e293b,
-        roughness: 0.4,
-        metalness: 0.5,
+        map: facadeTex,
+        roughness: b.style === "glass_blue" ? 0.22 : 0.45,
+        metalness: b.style === "glass_blue" ? 0.68 : 0.35,
         transparent: true,
-        opacity: 0.76
+        opacity: 0.90
       });
       const bMesh = new THREE.Mesh(bGeo, bMat);
       bMesh.position.set(b.x, baseZ + b.h / 2, b.z);
       scene.add(bMesh);
 
       const edges = new THREE.EdgesGeometry(bGeo);
+      const edgeColor = b.crown ? b.crown : 0x475569;
       const line = new THREE.LineSegments(
         edges,
-        new THREE.LineBasicMaterial({ color: 0x475569, transparent: true, opacity: 0.5 })
+        new THREE.LineBasicMaterial({ color: edgeColor, transparent: true, opacity: b.crown ? 0.72 : 0.42 })
       );
       line.position.copy(bMesh.position);
       scene.add(line);
+
+      // Rooftop Architectural Crown & Helipad Marker (Google 3D Landmark Detail)
+      if (b.helipad) {
+        const padGeo = new THREE.CylinderGeometry(b.w * 0.32, b.w * 0.32, 0.35, 20);
+        const padMat = new THREE.MeshBasicMaterial({ color: b.crown || 0x38bdf8 });
+        const padMesh = new THREE.Mesh(padGeo, padMat);
+        padMesh.position.set(b.x, baseZ + b.h + 0.2, b.z);
+        scene.add(padMesh);
+      }
     });
+
+    // Kukkiwon (World Taekwondo Headquarters) Traditional Octagonal Landmark on GN_05 Crest (38.5m)
+    (function buildKukkiwonLandmark() {
+      const kx = 4.0, kz = -26.0;
+      const kBaseY = getTerrainElevation(kx, kz);
+      const podium = new THREE.Mesh(
+        new THREE.CylinderGeometry(7.5, 8.5, 4.5, 8),
+        new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5 })
+      );
+      podium.position.set(kx, kBaseY + 2.25, kz);
+      scene.add(podium);
+
+      const roof = new THREE.Mesh(
+        new THREE.ConeGeometry(9.2, 4.2, 8),
+        new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.35, metalness: 0.4 })
+      );
+      roof.position.set(kx, kBaseY + 6.5, kz);
+      scene.add(roof);
+    })();
 
     // 4. Dynamic Flood Water Surface Plane (18.5m default = water_level 2.0m)
     const waterGeo = new THREE.PlaneGeometry(205, 205);
@@ -999,29 +1384,38 @@
     }
 
     function setCameraMode(mode) {
+      if (mode !== "escape" && escapeGameActive) {
+        escapeGameActive = false;
+        document.getElementById("escape-hud").style.display = "none";
+        document.getElementById("escape-result-modal").style.display = "none";
+      }
       camMode = mode;
       document.getElementById("camOrbit").classList.toggle("active", mode === "orbit");
       document.getElementById("camTop").classList.toggle("active", mode === "top");
       document.getElementById("camRoute").classList.toggle("active", mode === "route");
+      const escBtn = document.getElementById("camEscape");
+      if (escBtn) escBtn.classList.toggle("active", mode === "escape");
       if (mode === "orbit") {
         autoRotate = true;
         camPhi = 0.92;
         camRadius = 152.0;
         camTarget.set(0, 22, 0);
+        updateCameraFromSpherical();
       } else if (mode === "top") {
         autoRotate = false;
         camTheta = 0.0;
         camPhi = 0.14;
         camRadius = 165.0;
         camTarget.set(0, 20, 0);
+        updateCameraFromSpherical();
       } else if (mode === "route") {
         autoRotate = false;
         camTheta = -0.28;
         camPhi = 1.02;
         camRadius = 105.0;
         camTarget.set(10, 28, -5);
+        updateCameraFromSpherical();
       }
-      updateCameraFromSpherical();
     }
 
     renderer.domElement.style.cursor = "grab";
@@ -1056,7 +1450,7 @@
         camTarget.x -= (dx * rightX - dy * fwdX) * panSpeed;
         camTarget.z -= (dx * rightZ - dy * fwdZ) * panSpeed;
       }
-      updateCameraFromSpherical();
+      if (camMode !== "escape") updateCameraFromSpherical();
     });
 
     window.addEventListener("mouseup", () => {
@@ -1071,7 +1465,7 @@
     renderer.domElement.addEventListener("wheel", (e) => {
       e.preventDefault();
       camRadius = Math.max(45.0, Math.min(280.0, camRadius + e.deltaY * 0.12));
-      updateCameraFromSpherical();
+      if (camMode !== "escape") updateCameraFromSpherical();
     }, { passive: false });
 
     // Touch support (mobile / trackpad gesture)
@@ -1092,7 +1486,7 @@
       prevMouse.y = e.touches[0].clientY;
       camTheta -= dx * 0.0075;
       camPhi = Math.max(0.12, Math.min(1.48, camPhi - dy * 0.0065));
-      updateCameraFromSpherical();
+      if (camMode !== "escape") updateCameraFromSpherical();
     }, { passive: true });
 
     window.addEventListener("touchend", () => { isDragging = false; });
@@ -1148,10 +1542,377 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    // ============================================================================
+    // 11. MOVIE "2012" DISASTER VEHICLE ESCAPE GAMIFICATION ENGINE (Vehicles Only)
+    // ============================================================================
+    let audioCtx = null;
+    function playDisasterSound(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const now = audioCtx.currentTime;
+        if (type === "cbs_siren") {
+          // Korean Emergency CBS Alert Two-Tone Chime (853Hz + 960Hz)
+          [0, 0.35].forEach(offset => {
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc1.frequency.value = 853;
+            osc2.frequency.value = 960;
+            gain.gain.setValueAtTime(0.08, now + offset);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.28);
+            osc1.connect(gain); osc2.connect(gain); gain.connect(audioCtx.destination);
+            osc1.start(now + offset); osc2.start(now + offset);
+            osc1.stop(now + offset + 0.28); osc2.stop(now + offset + 0.28);
+          });
+        } else if (type === "turbo") {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(140, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.35);
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.38);
+        } else if (type === "stall") {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "square";
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.linearRampToValueAtTime(95, now + 0.45);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now); osc.stop(now + 0.48);
+        } else if (type === "victory") {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.09, now + idx * 0.11);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.11 + 0.35);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.11);
+            osc.stop(now + idx * 0.11 + 0.35);
+          });
+        }
+      } catch (e) {}
+    }
+
+    // Build 3D Car Mesh (Hero SUV + Civilian Traffic Vehicles)
+    function create3DCarMesh(bodyColor, isHero) {
+      const carGroup = new THREE.Group();
+      const scale = isHero ? 1.25 : 0.95;
+
+      // Lower Chassis
+      const chassis = new THREE.Mesh(
+        new THREE.BoxGeometry(2.2 * scale, 0.75 * scale, 4.2 * scale),
+        new THREE.MeshStandardMaterial({ color: bodyColor, roughness: 0.25, metalness: 0.65 })
+      );
+      chassis.position.y = 0.6 * scale;
+      carGroup.add(chassis);
+
+      // Cabin / Greenhouse
+      const cabin = new THREE.Mesh(
+        new THREE.BoxGeometry(1.85 * scale, 0.65 * scale, 2.3 * scale),
+        new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.15, metalness: 0.85 })
+      );
+      cabin.position.set(0, 1.22 * scale, -0.2 * scale);
+      carGroup.add(cabin);
+
+      // 4 Wheels
+      const wheelGeo = new THREE.CylinderGeometry(0.42 * scale, 0.42 * scale, 0.32 * scale, 12);
+      wheelGeo.rotateZ(Math.PI / 2);
+      const wheelMat = new THREE.MeshBasicMaterial({ color: 0x111827 });
+      [
+        [-1.05 * scale, 0.42 * scale, 1.3 * scale],
+        [ 1.05 * scale, 0.42 * scale, 1.3 * scale],
+        [-1.05 * scale, 0.42 * scale, -1.3 * scale],
+        [ 1.05 * scale, 0.42 * scale, -1.3 * scale]
+      ].forEach(([wx, wy, wz]) => {
+        const w = new THREE.Mesh(wheelGeo, wheelMat);
+        w.position.set(wx, wy, wz);
+        carGroup.add(w);
+      });
+
+      // Twin Headlight Volumetric Cones (Pointing +Z forward in local space)
+      const coneGeo = new THREE.ConeGeometry(1.3 * scale, 7.5 * scale, 12, 1, true);
+      coneGeo.rotateX(-Math.PI / 2);
+      const coneMat = new THREE.MeshBasicMaterial({
+        color: isHero ? 0xfef08a : 0xe0f2fe,
+        transparent: true,
+        opacity: isHero ? 0.28 : 0.16,
+        side: THREE.DoubleSide
+      });
+      const headL = new THREE.Mesh(coneGeo, coneMat);
+      headL.position.set(-0.65 * scale, 0.62 * scale, 5.6 * scale);
+      const headR = new THREE.Mesh(coneGeo, coneMat);
+      headR.position.set(0.65 * scale, 0.62 * scale, 5.6 * scale);
+      carGroup.add(headL, headR);
+
+      // Rear Red Brake Taillights
+      const tailMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      const tailGeo = new THREE.BoxGeometry(0.45 * scale, 0.22 * scale, 0.12 * scale);
+      const tailL = new THREE.Mesh(tailGeo, tailMat);
+      tailL.position.set(-0.7 * scale, 0.72 * scale, -2.12 * scale);
+      const tailR = new THREE.Mesh(tailGeo, tailMat);
+      tailR.position.set(0.7 * scale, 0.72 * scale, -2.12 * scale);
+      carGroup.add(tailL, tailR);
+      carGroup.userData.tailMat = tailMat;
+
+      if (isHero) {
+        // Emergency Roof Strobe Lightbar + Halo Ring + Turbo Flame
+        const lightBar = new THREE.Mesh(
+          new THREE.BoxGeometry(1.2 * scale, 0.22 * scale, 0.45 * scale),
+          new THREE.MeshBasicMaterial({ color: 0xf97316 })
+        );
+        lightBar.position.set(0, 1.65 * scale, -0.1 * scale);
+        carGroup.add(lightBar);
+        carGroup.userData.lightBar = lightBar;
+
+        const haloGeo = new THREE.RingGeometry(2.6, 3.3, 28);
+        haloGeo.rotateX(-Math.PI / 2);
+        const haloMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide, transparent: true, opacity: 0.85 });
+        const haloMesh = new THREE.Mesh(haloGeo, haloMat);
+        haloMesh.position.y = 0.2;
+        carGroup.add(haloMesh);
+        carGroup.userData.haloMat = haloMat;
+
+        // Turbo Afterburner Flame Cone at rear bumper
+        const flameGeo = new THREE.ConeGeometry(0.65, 3.2, 12);
+        flameGeo.rotateX(-Math.PI / 2);
+        const flameMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.0 });
+        const flameMesh = new THREE.Mesh(flameGeo, flameMat);
+        flameMesh.position.set(0, 0.55 * scale, -3.6 * scale);
+        carGroup.add(flameMesh);
+        carGroup.userData.flameMat = flameMat;
+      }
+
+      return carGroup;
+    }
+
+    const heroCar = create3DCarMesh(0xf97316, true);
+    scene.add(heroCar);
+
+    // 8 AI Civilian Traffic Cars (5 Ridge Escape Convoy + 3 Low-Basin Trapped Cars)
+    const npcSpecs = [
+      // Safe Ridge Escape Convoy (GN_01 -> GN_04 -> GN_05 -> GN_06 -> GN_08)
+      { path: ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"], t: 0.08, speed: 0.0014, color: 0xfacc15, laneOffset: 1.8 },
+      { path: ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"], t: 0.24, speed: 0.0012, color: 0x38bdf8, laneOffset: -1.8 },
+      { path: ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"], t: 0.45, speed: 0.0015, color: 0xe2e8f0, laneOffset: 1.6 },
+      { path: ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"], t: 0.66, speed: 0.0013, color: 0x34d399, laneOffset: -1.6 },
+      { path: ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"], t: 0.82, speed: 0.0014, color: 0xf43f5e, laneOffset: 1.7 },
+      // Low Basin Trapped Traffic (GN_01 -> GN_02 -> GN_06 & GN_01 -> GN_03)
+      { path: ["GN_01", "GN_02", "GN_06"], t: 0.28, speed: 0.0011, color: 0xfbbf24, laneOffset: 1.5, basinTrap: true },
+      { path: ["GN_01", "GN_02", "GN_06"], t: 0.46, speed: 0.0009, color: 0x94a3b8, laneOffset: -1.5, basinTrap: true },
+      { path: ["GN_01", "GN_03", "GN_07"], t: 0.38, speed: 0.0010, color: 0x60a5fa, laneOffset: 1.4, basinTrap: true }
+    ];
+
+    const npcCars = npcSpecs.map(spec => {
+      const mesh = create3DCarMesh(spec.color, false);
+      scene.add(mesh);
+      return { ...spec, mesh };
+    });
+
+    // 3D Glowing Checkpoint Gates along the AI Safe Route (GN_04, GN_05, GN_06, GN_08)
+    const escapeWaypoints = ["GN_01", "GN_04", "GN_05", "GN_06", "GN_08"];
+    const checkpointGates = [];
+    ["GN_04", "GN_05", "GN_06", "GN_08"].forEach((id) => {
+      const n = nodesMap[id];
+      const gateGroup = new THREE.Group();
+      const ringGeo = new THREE.TorusGeometry(4.2, 0.32, 12, 32);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: id === "GN_08" ? 0x10b981 : 0x38bdf8,
+        transparent: true,
+        opacity: 0.85
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.position.set(n.x, n.surfaceY + 4.2, n.z);
+      gateGroup.add(ringMesh);
+      scene.add(gateGroup);
+      checkpointGates.push({ id, node: n, mesh: ringMesh, mat: ringMat, cleared: false });
+    });
+
+    // Position helper along any node list
+    function getPointOnNodePath(pathIds, tNorm, laneOffset) {
+      const totalSegs = pathIds.length - 1;
+      const scaled = Math.max(0, Math.min(0.9999, tNorm)) * totalSegs;
+      const segIdx = Math.floor(scaled);
+      const localT = scaled - segIdx;
+      const u = nodesMap[pathIds[segIdx]];
+      const v = nodesMap[pathIds[segIdx + 1]];
+      const dx = v.x - u.x;
+      const dz = v.z - u.z;
+      const len = Math.hypot(dx, dz) || 1;
+      const nx = -dz / len;
+      const nz = dx / len;
+      const x = u.x + dx * localT + nx * (laneOffset || 0);
+      const z = u.z + dz * localT + nz * (laneOffset || 0);
+      const y = getTerrainElevation(x, z);
+      const yaw = Math.atan2(dx, dz);
+      return { x, y, z, yaw };
+    }
+
+    function alignCarToTerrain(carMesh, x, z, yaw, floodZ) {
+      const y = getTerrainElevation(x, z);
+      const step = 1.8;
+      const frontY = getTerrainElevation(x + Math.sin(yaw) * step, z + Math.cos(yaw) * step);
+      const pitch = Math.atan2(frontY - y, step);
+      const waterDepth = Math.max(0, floodZ - y);
+      // Float/bob slightly if submerged in deep basin water
+      const floatOffset = waterDepth > 0.45 ? Math.min(1.2, (waterDepth - 0.45) * 0.35) + Math.sin(Date.now() * 0.008 + x) * 0.18 : 0;
+
+      carMesh.position.set(x, y + 0.15 + floatOffset, z);
+      carMesh.rotation.set(-pitch, yaw, 0);
+      return { y, waterDepth };
+    }
+
+    // Escape Simulation State
+    let escapeGameActive = false;
+    let escControlMode = "autopilot"; // "manual" | "autopilot" | "trap_demo"
+    let escFinished = false;
+    let escElapsedSec = 0;
+    let escFloodZ = 15.2;
+    let heroPos = { x: nodesMap.GN_01.x, z: nodesMap.GN_01.z, yaw: 0.18, speed: 0 };
+    let heroHealth = 100.0;
+    let turboTimer = 0.0;
+    let nextWpIndex = 1; // Index in escapeWaypoints (1 = GN_04)
+    let shakeIntensity = 0.0;
+    let usedTurboCount = 0;
+
+    const keyState = { up: false, down: false, left: false, right: false };
+    function setPadKey(dir, val) {
+      keyState[dir] = val;
+      if (val && escapeGameActive) escControlMode = "manual";
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (!escapeGameActive) return;
+      const k = e.key.toLowerCase();
+      if (k === "w" || e.key === "ArrowUp") { keyState.up = true; escControlMode = "manual"; }
+      if (k === "s" || e.key === "ArrowDown") { keyState.down = true; escControlMode = "manual"; }
+      if (k === "a" || e.key === "ArrowLeft") { keyState.left = true; escControlMode = "manual"; }
+      if (k === "d" || e.key === "ArrowRight") { keyState.right = true; escControlMode = "manual"; }
+      if (e.code === "Space") {
+        e.preventDefault();
+        triggerVehicleTurboBoost();
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      const k = e.key.toLowerCase();
+      if (k === "w" || e.key === "ArrowUp") keyState.up = false;
+      if (k === "s" || e.key === "ArrowDown") keyState.down = false;
+      if (k === "a" || e.key === "ArrowLeft") keyState.left = false;
+      if (k === "d" || e.key === "ArrowRight") keyState.right = false;
+    });
+
+    function resetEscapeSimulation(startMode) {
+      escapeGameActive = true;
+      escFinished = false;
+      escControlMode = startMode || "autopilot";
+      escElapsedSec = 0;
+      escFloodZ = 15.2;
+      heroHealth = 100.0;
+      turboTimer = 0.8;
+      nextWpIndex = 1;
+      shakeIntensity = 0.35;
+
+      const startNode = nodesMap.GN_01;
+      const firstTarget = escControlMode === "trap_demo" ? nodesMap.GN_02 : nodesMap.GN_04;
+      heroPos.x = startNode.x;
+      heroPos.z = startNode.z;
+      heroPos.yaw = Math.atan2(firstTarget.x - startNode.x, firstTarget.z - startNode.z);
+      heroPos.speed = 18.0;
+
+      checkpointGates.forEach(g => {
+        g.cleared = false;
+        g.mat.color.setHex(g.id === "GN_08" ? 0x10b981 : 0x38bdf8);
+      });
+
+      document.getElementById("escape-hud").style.display = "block";
+      document.getElementById("escape-result-modal").style.display = "none";
+      document.getElementById("waterSlider").value = escFloodZ.toFixed(1);
+      updateFloodLevel(escFloodZ);
+      playDisasterSound("cbs_siren");
+    }
+
+    function startEscapeTrainingMode() {
+      camMode = "escape";
+      autoRotate = false;
+      document.getElementById("camOrbit").classList.remove("active");
+      document.getElementById("camTop").classList.remove("active");
+      document.getElementById("camRoute").classList.remove("active");
+      const escBtn = document.getElementById("camEscape");
+      if (escBtn) escBtn.classList.add("active");
+      resetEscapeSimulation("autopilot");
+    }
+
+    function exitEscapeTrainingMode() {
+      escapeGameActive = false;
+      document.getElementById("escape-hud").style.display = "none";
+      document.getElementById("escape-result-modal").style.display = "none";
+      updateFloodLevel(18.5);
+      document.getElementById("waterSlider").value = "18.5";
+      setCameraMode("orbit");
+    }
+
+    function triggerAutoPilotSafeRoute() {
+      if (!escapeGameActive) startEscapeTrainingMode();
+      // If currently trapped in low basin (GN_02), recover onto nearest safe slope
+      const curY = getTerrainElevation(heroPos.x, heroPos.z);
+      if (curY < 18.2 || heroHealth <= 10) {
+        heroPos.x = nodesMap.GN_01.x;
+        heroPos.z = nodesMap.GN_01.z;
+        nextWpIndex = 1;
+        heroHealth = 100.0;
+      }
+      escControlMode = "autopilot";
+      turboTimer = 1.6;
+      playDisasterSound("turbo");
+    }
+
+    function triggerFloodedBasinTrapDemo() {
+      if (!escapeGameActive) startEscapeTrainingMode();
+      resetEscapeSimulation("trap_demo");
+      document.getElementById("cbsBannerText").textContent =
+        "⚠️ [저지대 진입 경보] 네비게이션 최단경로(GN_02 강남역 지하차도, 13.5m) 진입 중! 급격한 침수 위험!";
+    }
+
+    function triggerVehicleTurboBoost() {
+      if (!escapeGameActive) {
+        startEscapeTrainingMode();
+        return;
+      }
+      usedTurboCount++;
+      turboTimer = 2.2;
+      shakeIntensity = 0.55;
+      playDisasterSound("turbo");
+
+      // If car was stalled in deep floodwater (GN_02), Emergency Escape Boost blasts back toward high ground!
+      if (heroHealth <= 20 || escControlMode === "trap_demo") {
+        escControlMode = "autopilot";
+        heroHealth = Math.max(65, heroHealth);
+        document.getElementById("cbsBannerText").textContent =
+          "⚡ [풀악셀 긴급 탈출 가동!] 침수 저지대를 벗어나 AI 고지대 능선(GN_04 -> GN_05)으로 긴급 우회합니다!";
+      }
+    }
+
+    // Place Hero Car at GN_01 by default even in Orbit mode so it's visible on the 3D map
+    alignCarToTerrain(heroCar, nodesMap.GN_01.x, nodesMap.GN_01.z, 0.2, currentFloodPlaneZ);
+
     let pulseT = 0;
+    let lastFrameTime = performance.now();
     updateCameraFromSpherical();
+
     function animate() {
       requestAnimationFrame(animate);
+      const now = performance.now();
+      const dt = Math.min(0.05, (now - lastFrameTime) / 1000.0);
+      lastFrameTime = now;
+
       pulseT = (pulseT + 0.0045) % 1.0;
 
       if (activeRouteCurve) {
@@ -1159,7 +1920,205 @@
         pulseMarker.position.copy(pt);
       }
 
-      if (autoRotate && !isDragging) {
+      // Animate 8 AI Civilian Traffic Vehicles continuously across Gangnam roads
+      npcCars.forEach((npc, idx) => {
+        const pt = getPointOnNodePath(npc.path, npc.t, npc.laneOffset);
+        const { y, waterDepth } = alignCarToTerrain(npc.mesh, pt.x, pt.z, pt.yaw, currentFloodPlaneZ);
+        if (waterDepth > 0.45) {
+          // Stranded in flooded low basin (GN_02 / GN_03): hazard lights blink!
+          npc.mesh.userData.tailMat.color.setHex((Math.floor(now * 0.008 + idx) % 2 === 0) ? 0xfacc15 : 0xef4444);
+        } else {
+          npc.t = (npc.t + npc.speed) % 1.0;
+          npc.mesh.userData.tailMat.color.setHex(0xef4444);
+        }
+      });
+
+      // Rotate Checkpoint Rings & Strobe Hero Roof Lightbar
+      checkpointGates.forEach((g, idx) => {
+        g.mesh.rotation.y += 0.025;
+        g.mesh.position.y = g.node.surfaceY + 4.2 + Math.sin(now * 0.004 + idx) * 0.35;
+      });
+      if (heroCar.userData.lightBar) {
+        heroCar.userData.lightBar.material.color.setHex((Math.floor(now * 0.012) % 2 === 0) ? 0xef4444 : 0x38bdf8);
+      }
+
+      // Interactive Movie "2012" Vehicle Escape Simulation Loop
+      if (escapeGameActive && !escFinished) {
+        escElapsedSec += dt;
+
+        // Rising Tsunami / Flash Flood Wave (15.2m -> 22.4m)
+        if (escFloodZ < 22.4) {
+          const riseRate = escControlMode === "trap_demo" ? 0.52 : 0.24;
+          escFloodZ = Math.min(22.4, escFloodZ + riseRate * dt);
+          currentFloodPlaneZ = escFloodZ;
+          waterPlane.position.y = escFloodZ;
+          document.getElementById("waterVal").textContent = escFloodZ.toFixed(1) + "m";
+          document.getElementById("waterSlider").value = Math.min(22.0, escFloodZ).toFixed(1);
+        }
+
+        // Occasional Movie "2012" Storm Lightning Flash
+        if (Math.random() < 0.008) {
+          dirLight.intensity = 2.8;
+          setTimeout(() => { dirLight.intensity = 1.15; }, 90);
+        }
+
+        const curTerrY = getTerrainElevation(heroPos.x, heroPos.z);
+        const waterDepth = Math.max(0, escFloodZ - curTerrY);
+
+        // Turbo Boost decay
+        if (turboTimer > 0) {
+          turboTimer = Math.max(0, turboTimer - dt);
+          heroCar.userData.flameMat.opacity = 0.88;
+          heroCar.userData.haloMat.color.setHex(0xfacc15);
+        } else {
+          heroCar.userData.flameMat.opacity = 0.0;
+          heroCar.userData.haloMat.color.setHex(waterDepth > 0.35 ? 0xef4444 : 0x38bdf8);
+        }
+
+        // Hydrodynamic Drag & Engine Durability in Deep Floodwater (> 0.35m)
+        if (waterDepth > 0.35 && turboTimer <= 0) {
+          heroHealth = Math.max(0, heroHealth - waterDepth * 26.0 * dt);
+          if (heroHealth <= 5 && Math.random() < 0.06) playDisasterSound("stall");
+        } else {
+          heroHealth = Math.min(100, heroHealth + 12.0 * dt);
+        }
+
+        const boostMult = turboTimer > 0 ? 1.65 : 1.0;
+        const waterDrag = waterDepth > 0.40 && turboTimer <= 0 ? Math.max(0.08, 1.0 - waterDepth * 0.45) : 1.0;
+        const maxMoveSpeed = 21.5 * boostMult * waterDrag;
+
+        if (escControlMode === "autopilot") {
+          const targetId = escapeWaypoints[Math.min(nextWpIndex, escapeWaypoints.length - 1)];
+          const targetNode = nodesMap[targetId];
+          const dx = targetNode.x - heroPos.x;
+          const dz = targetNode.z - heroPos.z;
+          const dist = Math.hypot(dx, dz);
+          const desiredYaw = Math.atan2(dx, dz);
+          let diff = desiredYaw - heroPos.yaw;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          heroPos.yaw += diff * Math.min(1.0, dt * 6.5);
+          heroPos.speed = maxMoveSpeed;
+          heroPos.x += Math.sin(heroPos.yaw) * heroPos.speed * dt;
+          heroPos.z += Math.cos(heroPos.yaw) * heroPos.speed * dt;
+
+          if (dist < 4.8 && nextWpIndex < escapeWaypoints.length - 1) {
+            nextWpIndex++;
+          }
+        } else if (escControlMode === "trap_demo") {
+          // Steer straight into Flooded Basin GN_02 (13.5m) to demonstrate submergence & engine stall
+          const trapNode = nodesMap.GN_02;
+          const dx = trapNode.x - heroPos.x;
+          const dz = trapNode.z - heroPos.z;
+          const dist = Math.hypot(dx, dz);
+          if (dist > 2.2 && heroHealth > 5) {
+            heroPos.yaw = Math.atan2(dx, dz);
+            heroPos.speed = maxMoveSpeed * 0.85;
+            heroPos.x += Math.sin(heroPos.yaw) * heroPos.speed * dt;
+            heroPos.z += Math.cos(heroPos.yaw) * heroPos.speed * dt;
+          } else {
+            heroPos.speed = 0;
+            document.getElementById("cbsBannerText").textContent =
+              "🚨 [차량 침수 시동꺼짐!] GN_02 지하차도(13.5m) 고립! 우측 하단 [⚡ 풀악셀 부스트(Space)] 또는 [🤖 AI 가이드 자율질주]로 탈출하세요!";
+          }
+        } else {
+          // Manual WASD / Arrow / D-Pad Driving
+          const turnSpeed = 2.1;
+          if (keyState.left) heroPos.yaw += turnSpeed * dt;
+          if (keyState.right) heroPos.yaw -= turnSpeed * dt;
+          if (keyState.up) {
+            heroPos.speed = maxMoveSpeed;
+          } else if (keyState.down) {
+            heroPos.speed = -maxMoveSpeed * 0.55;
+          } else {
+            heroPos.speed *= 0.90;
+          }
+          heroPos.x = Math.max(-92, Math.min(92, heroPos.x + Math.sin(heroPos.yaw) * heroPos.speed * dt));
+          heroPos.z = Math.max(-92, Math.min(92, heroPos.z + Math.cos(heroPos.yaw) * heroPos.speed * dt));
+        }
+
+        // Align Hero SUV on 3D Terrain
+        const aligned = alignCarToTerrain(heroCar, heroPos.x, heroPos.z, heroPos.yaw, escFloodZ);
+
+        // Check Checkpoint Gate clearance
+        checkpointGates.forEach((g, idx) => {
+          const d = Math.hypot(heroPos.x - g.node.x, heroPos.z - g.node.z);
+          if (d < 6.5 && !g.cleared) {
+            g.cleared = true;
+            g.mat.color.setHex(0xfacc15);
+            if (idx + 2 > nextWpIndex && nextWpIndex < escapeWaypoints.length - 1) {
+              nextWpIndex = idx + 2;
+            }
+          }
+        });
+
+        // Cinematic "2012" 3rd-Person Chase Camera Tracking Hero SUV
+        if (camMode === "escape" && !isDragging) {
+          const chaseDist = turboTimer > 0 ? 22.0 : 25.0;
+          const chaseHeight = 11.5;
+          const desiredCamX = heroPos.x - Math.sin(heroPos.yaw) * chaseDist;
+          const desiredCamZ = heroPos.z - Math.cos(heroPos.yaw) * chaseDist;
+          const desiredCamY = Math.max(aligned.y + chaseHeight, escFloodZ + 5.5);
+
+          shakeIntensity = Math.max(0, shakeIntensity - dt * 0.45);
+          const shakeX = (Math.random() - 0.5) * shakeIntensity;
+          const shakeY = (Math.random() - 0.5) * shakeIntensity;
+
+          camera.position.lerp(new THREE.Vector3(desiredCamX + shakeX, desiredCamY + shakeY, desiredCamZ), 0.12);
+          camTarget.lerp(new THREE.Vector3(
+            heroPos.x + Math.sin(heroPos.yaw) * 14.0,
+            aligned.y + 2.5,
+            heroPos.z + Math.cos(heroPos.yaw) * 14.0
+          ), 0.16);
+          camera.lookAt(camTarget);
+        }
+
+        // Update Top-Center Escape Telemetry HUD
+        const kmh = Math.round(Math.abs(heroPos.speed) * 4.2);
+        document.getElementById("escTimerBadge").textContent = "⏱️ " + escElapsedSec.toFixed(1) + "s";
+        const modeEl = document.getElementById("escModeText");
+        if (aligned.waterDepth > 0.45 && turboTimer <= 0) {
+          modeEl.textContent = "🚨 침수 엔진정지 (0 km/h)";
+          modeEl.style.color = "#ef4444";
+        } else if (turboTimer > 0) {
+          modeEl.textContent = "⚡ TURBO BOOST (" + kmh + " km/h)";
+          modeEl.style.color = "#facc15";
+        } else {
+          modeEl.textContent = "🚗 HERO SUV (" + kmh + " km/h)";
+          modeEl.style.color = "#38bdf8";
+        }
+
+        const elevEl = document.getElementById("escElevText");
+        elevEl.textContent = aligned.y.toFixed(1) + "m / 수위 " + escFloodZ.toFixed(1) + "m";
+        elevEl.style.color = aligned.y > escFloodZ + 0.5 ? "#34d399" : "#ef4444";
+
+        const healthEl = document.getElementById("escHealthText");
+        const barEl = document.getElementById("escHealthBar");
+        healthEl.textContent = Math.round(heroHealth) + "% (수심 " + aligned.waterDepth.toFixed(2) + "m)";
+        healthEl.style.color = heroHealth > 50 ? "#10b981" : "#ef4444";
+        barEl.style.width = Math.round(heroHealth) + "%";
+        barEl.style.background = heroHealth > 50
+          ? "linear-gradient(90deg, #10b981, #34d399)"
+          : "linear-gradient(90deg, #dc2626, #f97316)";
+
+        const nextId = escapeWaypoints[Math.min(nextWpIndex, escapeWaypoints.length - 1)];
+        const nextNode = nodesMap[nextId];
+        const remDist = Math.round(Math.hypot(nextNode.x - heroPos.x, nextNode.z - heroPos.z) * 10);
+        document.getElementById("escTargetText").textContent =
+          nextId + " (" + nextNode.y + "m | " + remDist + "m)";
+
+        // Check Victory Arrival at GN_08 Yeoksam Middle School Shelter (41.2m)
+        const distToShelter = Math.hypot(nodesMap.GN_08.x - heroPos.x, nodesMap.GN_08.z - heroPos.z);
+        if (distToShelter < 6.8) {
+          escFinished = true;
+          playDisasterSound("victory");
+          document.getElementById("modalTimeVal").textContent = escElapsedSec.toFixed(1) + "초 (골든타임 내)";
+          document.getElementById("modalFloodVal").textContent = escFloodZ.toFixed(1) + "m (저지대 침수)";
+          document.getElementById("modalModeVal").textContent =
+            usedTurboCount > 0 ? "⚡ 터보 부스트 & AI 능선 돌파" : "🚗 AI 안전 능선 무정차 주파";
+          document.getElementById("escape-result-modal").style.display = "block";
+        }
+      } else if (autoRotate && !isDragging && camMode !== "escape") {
         camTheta += 0.0020;
         updateCameraFromSpherical();
       }
