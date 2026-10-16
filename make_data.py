@@ -24,33 +24,56 @@ CSV_PATH = DATA_DIR / "gangnam_3d_grid.csv"
 JSON_PATH = DATA_DIR / "gangnam_graphify.json"
 
 
+TERRAIN_CONTROL_POINTS: list[tuple[float, float, float]] = [
+    (-45.0, 25.0, 19.2),   # GN_01: Gangnam Stn Origin Perimeter (Safe > 18.5m)
+    (-15.0, 30.0, 13.5),   # GN_02: Gangnam Stn Underpass Basin (Deep Flood Pit 13.5m)
+    (-55.0, 55.0, 17.2),   # GN_03: Seocho Low Corridor (Submerged 17.2m)
+    (-35.0, -25.0, 22.8),  # GN_04: Gangnam-daero Upper Slope (Safe Ridge 22.8m)
+    (5.0, -15.0, 38.5),    # GN_05: Kukkiwon Hill Crest (High Ground 38.5m)
+    (35.0, 5.0, 34.0),     # GN_06: Teheran-ro Yeoksam Plateau (High Ground 34.0m)
+    (-70.0, 75.0, 26.5),   # GN_07: Seocho Elementary High Ground Shelter (26.5m)
+    (65.0, 12.0, 41.2),    # GN_08: Yeoksam Middle School Hill Shelter (41.2m)
+    (-85.0, -75.0, 21.5),  # NW Boundary Slope
+    (80.0, -65.0, 39.5),   # NE Kukkiwon/Nonhyeon High Ridge
+    (-10.0, 75.0, 14.2),   # South Gangnam Drainage Channel (Low Basin)
+    (80.0, 75.0, 31.0),    # SE Yeoksam Upland
+]
+
+
+def compute_terrain_elevation(x_3d: float, z_3d: float) -> float:
+    """Compute smooth 3D DEM elevation (m) that matches all graph node elevations."""
+    num = 0.0
+    den = 0.0
+    for px, pz, py in TERRAIN_CONTROL_POINTS:
+        d2 = (x_3d - px) ** 2 + (z_3d - pz) ** 2
+        w = 1.0 / ((d2 + 16.0) ** 1.45)
+        num += w * py
+        den += w
+    return round(num / den, 2)
+
+
 def generate_gangnam_3d_grid(csv_path: Path = CSV_PATH, grid_size: int = 21) -> list[dict[str, Any]]:
     """Generate a 3D terrain elevation grid (CSV) modeling the Gangnam Station low basin and hills."""
     csv_path.parent.mkdir(parents=True, exist_ok=True)
     rows: list[dict[str, Any]] = []
 
-    lat_min, lat_max = 37.4920, 37.5060
-    lon_min, lon_max = 127.0190, 127.0380
+    lat_min, lat_max = 37.4920, 37.5040
+    lon_min, lon_max = 127.0200, 127.0380
 
     for r in range(grid_size):
         for c in range(grid_size):
+            # r=0 is North (z_3d=-100, lat_max), r=grid_size-1 is South (z_3d=+100, lat_min)
+            # Matches Three.js PlaneGeometry vertex ordering after rotateX(-pi/2)
             u = r / float(grid_size - 1)
             v = c / float(grid_size - 1)
 
-            lat = round(lat_min + u * (lat_max - lat_min), 6)
+            x_3d = round((v - 0.5) * 200.0, 2)
+            z_3d = round((u - 0.5) * 200.0, 2)
+
+            lat = round(lat_max - u * (lat_max - lat_min), 6)
             lon = round(lon_min + v * (lon_max - lon_min), 6)
 
-            # Map to 3D WebGL scene coordinates [-100, 100]
-            x_3d = round((v - 0.5) * 200.0, 2)
-            z_3d = round((0.5 - u) * 200.0, 2)
-
-            # Bowl-shaped Gangnam Station depression centered near (x=-15, z=30) + Kukkiwon/Yeoksam hills
-            dist_basin = math.hypot(x_3d + 15.0, z_3d - 30.0)
-            basin_dip = -11.5 * math.exp(-(dist_basin ** 2) / (2.0 * (42.0 ** 2)))
-            ridge_rise = 18.5 * (1.0 / (1.0 + math.exp(-(x_3d - 5.0) / 28.0))) + 6.5 * math.sin(
-                (z_3d - 15.0) * 0.03
-            )
-            z_elevation = round(max(12.5, 22.0 + basin_dip + ridge_rise), 2)
+            z_elevation = compute_terrain_elevation(x_3d, z_3d)
 
             # Flood water depth at reference water_level = 2.0m (flood plane = 18.5m)
             flood_plane_m = 18.5
@@ -130,8 +153,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_01",
                 "name": "Gangnam Station Intersection (Origin Perimeter)",
-                "lat": 37.497942,
-                "lon": 127.027621,
+                "lat": 37.496500,
+                "lon": 127.024950,
                 "x_3d": -45.0,
                 "z_3d": 25.0,
                 "z_elevation": 19.2,
@@ -144,8 +167,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_02",
                 "name": "Gangnam Station Exit 11 (Teheran-ro Low Basin)",
-                "lat": 37.498850,
-                "lon": 127.028910,
+                "lat": 37.496200,
+                "lon": 127.027650,
                 "x_3d": -15.0,
                 "z_3d": 30.0,
                 "z_elevation": 13.5,
@@ -158,8 +181,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_03",
                 "name": "Jinheung Apt Intersection (Seocho-daero Low Corridor)",
-                "lat": 37.495810,
-                "lon": 127.023100,
+                "lat": 37.494700,
+                "lon": 127.024050,
                 "x_3d": -55.0,
                 "z_3d": 55.0,
                 "z_elevation": 17.2,
@@ -171,9 +194,9 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             },
             {
                 "id": "GN_04",
-                "name": "Sinnonhyeon Station Ridge (Gangnam-daero Upper Slope)",
-                "lat": 37.504520,
-                "lon": 127.025040,
+                "name": "Sinnonhyeon Ridge (Gangnam-daero Upper Slope)",
+                "lat": 37.499500,
+                "lon": 127.025850,
                 "x_3d": -35.0,
                 "z_3d": -25.0,
                 "z_elevation": 22.8,
@@ -186,8 +209,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_05",
                 "name": "Kukkiwon Hill Intersection (High Ground)",
-                "lat": 37.501950,
-                "lon": 127.031520,
+                "lat": 37.498900,
+                "lon": 127.029450,
                 "x_3d": 5.0,
                 "z_3d": -15.0,
                 "z_elevation": 38.5,
@@ -200,8 +223,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_06",
                 "name": "Yeoksam Station Intersection (Teheran-ro Plateau)",
-                "lat": 37.500622,
-                "lon": 127.036456,
+                "lat": 37.497700,
+                "lon": 127.032150,
                 "x_3d": 35.0,
                 "z_3d": 5.0,
                 "z_elevation": 34.0,
@@ -214,8 +237,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_07",
                 "name": "Seocho Elementary School Shelter",
-                "lat": 37.493100,
-                "lon": 127.020500,
+                "lat": 37.493500,
+                "lon": 127.022700,
                 "x_3d": -70.0,
                 "z_3d": 75.0,
                 "z_elevation": 26.5,
@@ -228,8 +251,8 @@ def generate_gangnam_graphify(json_path: Path = JSON_PATH) -> dict[str, Any]:
             {
                 "id": "GN_08",
                 "name": "Yeoksam Middle School Regional Evacuation Shelter",
-                "lat": 37.499850,
-                "lon": 127.035800,
+                "lat": 37.497280,
+                "lon": 127.034850,
                 "x_3d": 65.0,
                 "z_3d": 12.0,
                 "z_elevation": 41.2,

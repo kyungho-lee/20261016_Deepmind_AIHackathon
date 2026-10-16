@@ -1,7 +1,7 @@
 {
   "project": "GeoRescue 3D",
   "pipeline": "Competitive Multi-Agent Tournament & Argon Chief Jury Selection",
-  "timestamp_utc": "2026-10-16T04:59:34.759138+00:00",
+  "timestamp_utc": "2026-10-16T05:11:56.353445+00:00",
   "chief_jury": {
     "model": "gemini-4-argon",
     "thinking_level": "high",
@@ -46,7 +46,7 @@
       ],
       "min_z_elevation_m": 19.2,
       "max_water_level_m": 0.12,
-      "execution_time_ms": 1.448,
+      "execution_time_ms": 1.4,
       "flood_safety_passed": true,
       "safety_violations": [],
       "algorithmic_efficiency_score": 25.0,
@@ -70,7 +70,7 @@
       ],
       "min_z_elevation_m": 17.2,
       "max_water_level_m": 0.24,
-      "execution_time_ms": 2.238,
+      "execution_time_ms": 1.356,
       "flood_safety_passed": false,
       "safety_violations": [
         "Submerged route violation: min_z_elevation_m=17.20m <= 18.50m flood plane.",
@@ -98,7 +98,7 @@
       ],
       "min_z_elevation_m": 13.5,
       "max_water_level_m": 0.45,
-      "execution_time_ms": 0.855,
+      "execution_time_ms": 1.007,
       "flood_safety_passed": false,
       "safety_violations": [
         "Submerged route violation: min_z_elevation_m=13.50m <= 18.50m flood plane.",
