@@ -48,7 +48,7 @@ Urban flash floods in bowl-shaped, concave metropolitan terrain—most notably t
 ## 5. Key Features & Innovation
 
 1. **Terrain-Locked 3D WebGL Digital Twin (`Three.js`)**:
-   - 64x64 IDW-interpolated 3D terrain mesh of the Gangnam Basin with hypsometric elevation coloring, `2.5m` topographic contour lines (`등고선`), and a crimson `18.5m` flood boundary ring.
+   - 64x64 IDW-interpolated 3D terrain mesh of the Gangnam Basin with hypsometric elevation coloring, `2.5m` topographic contour lines, and a crimson `18.5m` flood boundary ring.
    - Slope-hugging 3D green evacuation tube (`TubeGeometry`) and road network that follow exact terrain gradients (`0.00m` elevation mismatch).
 2. **Real-Time Water-Level Slider Simulation (`0.5m` – `5.0m`)**:
    - Interactive flood slider dynamically raises/lowers the translucent 3D flood plane, updates rain particle intensity, and triggers live `NetworkX` A\* route recalculation via FastAPI.

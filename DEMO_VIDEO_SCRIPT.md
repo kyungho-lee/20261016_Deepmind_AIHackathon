@@ -12,7 +12,7 @@
 
 ### 🖥️ Visual Storyboard (What to Show on Screen)
 1. **`0:00 - 0:15`**: Open the live Google Cloud Run URL (`https://georescue3d-464836279033.asia-northeast3.run.app/`). Orbit the camera slowly around the **Three.js 3D WebGL Digital Twin** of the Seoul Gangnam Station Basin. Point the cursor at the deep blue/brown central depression (`GN_02: 13.5m` Underpass) surrounded by steep green ridges (`GN_05: 38.5m` Kukkiwon Hill, `GN_08: 41.2m` Yeoksam Middle School Shelter).
-2. **`0:15 - 0:30`**: Hover over the **2.5m topographic contour lines (`등고선`)** and the crimson **`18.5m` flood boundary line** rendered directly on the 3D terrain mesh.
+2. **`0:15 - 0:30`**: Hover over the **2.5m topographic contour lines** and the crimson **`18.5m` flood boundary line** rendered directly on the 3D terrain mesh.
 3. **`0:30 - 0:45`**: Point to the dashed red bypassed path (`GN_01 -> GN_02 -> GN_06`) versus the glowing green 3D evacuation tube hugging the high-ground slope (`GN_01 -> GN_04 -> GN_05 -> GN_06 -> GN_08`).
 
 ### 🎙️ English Voiceover Script
